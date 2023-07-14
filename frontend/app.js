@@ -40,15 +40,16 @@ Vue.createApp({
         const selectedItem = {
           name: product.name,
           prod_id: product.prod_id,
-          size: product.selectedSize,
-          color: product.selectedColor,
+          size: product.selectedSize ? product.selectedSize : null,
+          color: product.selectedColor ? product.selectedColor : null,
           motive: product.selectedMotive ? {
             [product.selectedMotive[0]]: product.selectedMotive[1]
-          } : {},
+          } : null,
           variation: product.selectedVariation ? {
             [product.selectedVariation[0]]: product.selectedVariation[1]
-          }: {}
-          };
+          }: null,
+          price: product.price
+        };
         this.cart.push(selectedItem);
         localStorage.setItem('cart', JSON.stringify(this.cart));
         console.log(localStorage.getItem('cart'))

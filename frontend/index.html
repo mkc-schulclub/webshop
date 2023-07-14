@@ -86,12 +86,14 @@
                     <div class="image">
                         <img src="./images/cart.png">
                     </div>
-                    <ul><b>Farbe:</b> {{ product.color }}</ul>
-                    <ul><b>Größe:</b> {{ product.size }}</ul>
-                    <ul><b>Motiv:</b> {{ Object.values(product.motive)[0] }}</ul>
+                    <ul v-if="product.color"><b>Farbe:</b> {{ product.color }}</ul>
+                    <ul v-if="product.size"><b>Größe:</b> {{ product.size }}</ul>
+                    <ul v-if="product.motive"><b>Motiv:</b> {{ Object.values(product.motive)[0] }}</ul>
+                    <ul v-if="product.variation"><b>Variation:</b> {{ Object.values(product.variation)[0] }}</ul>
+                    <ul><b>Preis:</b> {{ `${product.price}€` }}</ul>
                     <div>
                         <button @click.prevent="removeFromCart(product)">
-                            <img src="./images/cart.png" alt="Aus dem Warenkorb entfernen" width="15"/>
+                            <img src="./images/" alt="Aus dem Warenkorb entfernen" width="15"/>
                         </button>
                     </div>
                 </div>
