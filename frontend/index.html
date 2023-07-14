@@ -58,6 +58,11 @@
         <div class="cart" v-if="activePage === 1">
             <ul v-for="(product, index) in cart" :key="index">
                 <h3>{{ product.name }}</h3>
+                <div>
+                    <button @click.prevent="removeFromCart(product)">
+                        <img src="./cart.png" alt="Aus dem Warenkorb entfernen" width="15"/>
+                    </button>
+                </div>
             </ul>
         </div>
 
