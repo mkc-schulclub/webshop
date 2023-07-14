@@ -67,12 +67,26 @@ Vue.createApp({
           this.cart.push(selectedItem);
         }
         localStorage.setItem('cart', JSON.stringify(this.cart));
-        console.log(localStorage.getItem('cart'));
       },
-      
-      removeFromCart(index) {
-          this.cart.splice(index, 1);
-          localStorage.setItem('cart', JSON.stringify(this.cart));
+      removeFromCart(product) {
+        const existingItemIndex = this.cart.findIndex((item) => {
+          return (
+            item.name === product.name &&
+            item.size === product.size &&
+            item.color === product.color &&
+            JSON.stringify(item.motive) === JSON.stringify(product.motive) &&
+            JSON.stringify(item.variation) === JSON.stringify(product.variation)
+          );
+        });
+        if (existingItemIndex !== -1) {
+          const item = this.cart[existingItemIndex];
+          if (item.amount > 1) {
+            item.amount--;
+          } else {
+            this.cart.splice(existingItemIndex, 1);
+          }
+        }
+        localStorage.setItem('cart', JSON.stringify(this.cart));
       },
       loadCartFromLocal() {
         const cartData = localStorage.getItem('cart');
