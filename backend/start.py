@@ -20,6 +20,7 @@ if __name__ == "__main__":
             host=host,
             ssl_keyfile=os.getenv("KEY_PATH"),
             ssl_certfile=os.getenv("CRT_PATH"),
+            reload=debug,
             reload_dirs=["backend"] if debug else []
         )
     else:
@@ -27,5 +28,6 @@ if __name__ == "__main__":
             "app:app",
             port=port,
             host=host,
+            reload=debug,
             reload_dirs=["backend"] if debug else []
         )
