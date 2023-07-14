@@ -10,8 +10,13 @@ from fastapi import APIRouter, Depends, Request
 from fillpdf import fillpdfs
 from pydantic import BaseModel
 
-from extras import (ShopException, db, generate_session, validate_session,
-                    validate_sig)
+from extras import (
+    ShopException,
+    db,
+    generate_session,
+    validate_session,
+    validate_sig
+)
 
 logger = getLogger(__name__)
 
@@ -41,9 +46,9 @@ async def upload(session: ClientSession, up_file: str) -> dict:
 
 class Product(BaseModel):
     # TODO: #3 finish adding attributes
-    name:       str
+    name:       str                       = ""
     prod_id:    str
-    price:      str
+    price:      str                       = ""
     variations: Optional[List[List[str]]] = {}
     colors:     Optional[List[str]]       = []
     sizes:      Optional[List[str]]       = []
@@ -75,10 +80,37 @@ async def addItem(item: Product):
     await db.insert_one(item)
     return item
 
+
+@router.patch(
+    "/items",
+    dependencies=[Depends(validate_sig), Depends(validate_session)]
+)
+async def updateItem(item: Product):
+    product = await db.items.find_one({"prod_id": item.prod_id})
+    if not product:
+        raise ShopException(404, "Product not Found", "prod_id not in database")
+    
+    await db.items.update_one({"prod_id: item.prod_id"}, {k: v for k, v in item.dict().items() if v})
+    return {k: v if v else product[k] for k, v in item.dict().items()}
+
+
+@router.delete(
+    "/items",
+    dependencies=[Depends(validate_sig), Depends(validate_session)]
+)
+async def removeItem(item: Product):
+    product = await db.items.find_one({"prod_id": item.prod_id})
+    if not product:
+        raise ShopException(404, "Product not Found", "prod_id not in database")
+    
+    await db.items.remove_one({"prod_id: item.prod_id"})
+    return {}
+
+
 @router.options(
     "/order"
 )
-async def order_preflight():
+async def orderPreflight():
     return {}
 
 @router.post(
@@ -115,6 +147,37 @@ async def order(items: List[Item]):
     await db.orders.insert_one({"items": [item.dict() for item in items], "date": datetime.now(), "url": response["files"][0]})
     os.remove("out-flat.pdf")
     return response
+
+
+@router.post(
+    "/user",
+    dependencies=[Depends(validate_sig), Depends(validate_session)]
+)
+async def addUser(request: Request):
+    try: out: dict[str, str] = await request.json()
+    except Exception: raise ShopException(455, "Invalid Body", "Couldn't json parse")
+    if not all(key in out.keys() for key in ["name", "password"]) and all(
+        isinstance(out[key], str) for key in ["name", "password"]
+    ):
+        raise ShopException(455, "Invalid Body", "name or password missing or of invalid type")
+
+    if not out["name"] or not out["password"]:
+        raise ShopException(455, "Invalid Body", "name or password empty")
+    
+    user = await db.users.find_one({"name": out["name"]})
+    
+    if user:
+        raise ShopException(457, "User already Exists", "User already found in database")
+    
+    password = bcrypt.hashpw(out["password"].encode(), bcrypt.gensalt()).decode()
+
+    await db.users.insert_one({
+        "name": out["name"],
+        "secret": password
+    })
+    
+    return {}
+    
 
 
 @router.post(
