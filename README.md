@@ -4,9 +4,9 @@ Der Webshop für den Schulmerch
 
 ## To-Do
 - Backend
-  - [ ] Sichere API
+  - [x] Sichere API
   - [ ] Guter Code
-  - [ ] Kommunikation mit DB
+  - [x] Kommunikation mit DB
 - Frontend
   - [ ] Funktionierende Oberfläche zum Bestellen (User Interface)
   - [ ] Funktionierende Oberfläche zum Hinzufügen/Bearbeiten (Admin Interface)
