@@ -46,9 +46,9 @@ async def upload(session: ClientSession, up_file: str) -> dict:
 
 class Product(BaseModel):
     # TODO: #3 finish adding attributes
-    name:       str
+    name:       str                       = ""
     prod_id:    str
-    price:      str
+    price:      str                       = ""
     variations: Optional[List[List[str]]] = {}
     colors:     Optional[List[str]]       = []
     sizes:      Optional[List[str]]       = []
@@ -80,10 +80,37 @@ async def addItem(item: Product):
     await db.insert_one(item)
     return item
 
+
+@router.patch(
+    "/items",
+    dependencies=[Depends(validate_sig), Depends(validate_session)]
+)
+async def updateItem(item: Product):
+    product = await db.items.find_one({"prod_id": item.prod_id})
+    if not product:
+        raise ShopException(404, "Product not Found", "prod_id not in database")
+    
+    await db.items.update_one({"prod_id: item.prod_id"}, {k: v for k, v in item.dict().items() if v})
+    return {k: v if v else product[k] for k, v in item.dict().items()}
+
+
+@router.delete(
+    "/items",
+    dependencies=[Depends(validate_sig), Depends(validate_session)]
+)
+async def removeItem(item: Product):
+    product = await db.items.find_one({"prod_id": item.prod_id})
+    if not product:
+        raise ShopException(404, "Product not Found", "prod_id not in database")
+    
+    await db.items.remove_one({"prod_id: item.prod_id"})
+    return {}
+
+
 @router.options(
     "/order"
 )
-async def order_preflight():
+async def orderPreflight():
     return {}
 
 @router.post(
@@ -126,7 +153,7 @@ async def order(items: List[Item]):
     "/user",
     dependencies=[Depends(validate_sig), Depends(validate_session)]
 )
-async def add_user(request: Request):
+async def addUser(request: Request):
     try: out: dict[str, str] = await request.json()
     except Exception: raise ShopException(455, "Invalid Body", "Couldn't json parse")
     if not all(key in out.keys() for key in ["name", "password"]) and all(
