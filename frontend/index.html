@@ -40,18 +40,29 @@
                 <div class="productcontainer">
                     <div class="text">
                         <h3>{{ product.name }}</h3>
-                        Größen:
-                        <select v-model="product.selectedSize">
-                        <option v-for="size in product.sizes" :key="size" :value="size">{{ size }}</option>
-                        </select>
+                        <span>
+                            Größen:
+                            <select v-model="product.selectedSize">
+                            <option v-for="size in product.sizes" :key="size" :value="size">{{ size }}</option>
+                            </select>
+                        </span>
                         Farben:
                         <select v-model="product.selectedColor">
                         <option v-for="color in product.colors" :key="color" :value="color">{{ color }}</option>
                         </select>
-                        <br> Motive:
-                        <select v-model="product.selectedMotive">
-                            <option v-for="motive in product.motives" :key="motive[0]" :value="motive">{{ motive[1] }}</option>
-                        </select>
+                        <br>
+                        <span v-if="product.motives !== []"> 
+                            Motive:
+                            <select v-model="product.selectedMotive">
+                                <option v-for="motive in product.motives" :key="motive[0]" :value="motive">{{ motive[1] }}</option>
+                            </select>
+                        </span>
+                        <span v-if="product.variations !== []"> 
+                            Variationen:
+                            <select v-model="product.selectedMotive">
+                                <option v-for="variation in product.variations" :key="variation[0]" :value="variation">{{ variation[1] }}</option>
+                            </select>
+                        </span>
                         <div>
                             <button @click.prevent="addToCart(product)" :disabled="!product.selectedSize || !product.selectedColor || !product.selectedMotive" :class="{ 'disabled-button': !product.selectedSize || !product.selectedColor || !product.selectedMotive }">
                                 <img src="./images/cart.png" alt="Zum Warenkorb hinzufügen" width="15"/>
@@ -84,6 +95,8 @@
                 </div>
             </ul>
         </div>
+        <button @click.prevent="submitCart()">
+        </button>
     </div>
 </body>
 </html>
