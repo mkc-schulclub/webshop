@@ -40,32 +40,50 @@
                 <div class="productcontainer">
                     <div class="text">
                         <h3>{{ product.name }}</h3>
-                        Größen: {{ product.has_size }}
-                        Motive: {{ product.motive }} <br>
+                        Größen:
+                        <select v-model="product.selectedSize">
+                        <option v-for="size in product.sizes" :key="size" :value="size">{{ size }}</option>
+                        </select>
+                        Farben:
+                        <select v-model="product.selectedColor">
+                        <option v-for="color in product.colors" :key="color" :value="color">{{ color }}</option>
+                        </select>
+                        <br> Motive:
+                        <select v-model="product.selectedMotive">
+                            <option v-for="motive in product.motives" :key="motive[0]" :value="motive">{{ motive[1] }}</option>
+                        </select>
                         <div>
-                            <button @click.prevent="addToCart(product)">
+                            <button @click.prevent="addToCart(product)" :disabled="!product.selectedSize || !product.selectedColor || !product.selectedMotive" :class="{ 'disabled-button': !product.selectedSize || !product.selectedColor || !product.selectedMotive }">
                                 <img src="./images/cart.png" alt="Zum Warenkorb hinzufügen" width="15"/>
-                            </button>
+                            </button>                             
                         </div>
                     </div>
-                    <div class="image">
-                      <img src="./images/cart.png">
+                    <div class="image" style="width: 600vh; height: auto;">
+                        <img src="./images/cart.png">
                     </div>
                 </div>
-            </ul>
+            </div>
+            </ul>  
         </div>
 
         <div class="cart" v-if="activePage === 1">
             <ul v-for="(product, index) in cart" :key="index">
-                <h3>{{ product.name }}</h3>
                 <div>
-                    <button @click.prevent="removeFromCart(product)">
-                        <img src="./images/cart.png" alt="Aus dem Warenkorb entfernen" width="15"/>
-                    </button>
+                    <h3>{{ product.name }}</h3>
+                    <div class="image">
+                        <img src="./images/cart.png">
+                    </div>
+                    <ul><b>Farbe:</b> {{ product.color }}</ul>
+                    <ul><b>Größe:</b> {{ product.size }}</ul>
+                    <ul><b>Motiv:</b> {{ Object.values(product.motive)[0] }}</ul>
+                    <div>
+                        <button @click.prevent="removeFromCart(product)">
+                            <img src="./images/cart.png" alt="Aus dem Warenkorb entfernen" width="15"/>
+                        </button>
+                    </div>
                 </div>
             </ul>
         </div>
-
     </div>
 </body>
 </html>

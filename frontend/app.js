@@ -15,9 +15,9 @@ Vue.createApp({
             content: 'Hier wird der Warenkorb sein'
           },
           {
-            link: { text: 'Contact', url: 'contact.html' },
-            pageTitle: 'Contact Page',
-            content: 'This is the contact content'
+            link: { text: 'Schulclub', url: 'contact.html' },
+            pageTitle: 'Max-Klinger-Schulclub',
+            content: 'Hier kann anderes Zeug hin'
           }
         ],
         products: [],
@@ -37,7 +37,17 @@ Vue.createApp({
         }
       },
       addToCart(product) {
-        this.cart.push(product);
+        const selectedItem = {
+          name: product.name,
+          prod_id: product.prod_id,
+          size: product.selectedSize,
+          color: product.selectedColor,
+          motive: {
+            [product.selectedMotive[0]]: product.selectedMotive[1]
+          }
+          };
+        this.cart.push(selectedItem);
+        console.log(this.cart)
         localStorage.setItem('cart', JSON.stringify(this.cart));
       },
       removeFromCart(index) {
@@ -47,7 +57,7 @@ Vue.createApp({
       loadCartFromLocal() {
         const cartData = localStorage.getItem('cart');
         if (cartData) {
-          this.cart = JSON.parse(cartData);
+          this.cart = Array.from(JSON.parse(cartData));
         }
       }
     },
