@@ -39,7 +39,7 @@
             <ul v-for="(product, index) in products" :key="index">
                 <div class="productcontainer">
                     <div class="text">
-                        <h3>{{ product }}</h3>
+                        <h3>{{ product.name }}</h3>
                         <span>
                             Größen:
                             <select v-model="product.selectedSize">
@@ -51,13 +51,13 @@
                         <option v-for="color in product.colors" :key="color" :value="color">{{ color }}</option>
                         </select>
                         <br>
-                        <span v-if="!product.motives"> 
+                        <span v-if="product.motives !== []"> 
                             Motive:
                             <select v-model="product.selectedMotive">
                                 <option v-for="motive in product.motives" :key="motive[0]" :value="motive">{{ motive[1] }}</option>
                             </select>
                         </span>
-                        <span v-if="!product.variations"> 
+                        <span v-if="product.variations !== []"> 
                             Variationen:
                             <select v-model="product.selectedMotive">
                                 <option v-for="variation in product.variations" :key="variation[0]" :value="variation">{{ variation[1] }}</option>
