@@ -43,13 +43,13 @@
                         Größen: {{ product.has_size }}
                         Motive: {{ product.motive }} <br>
                         <div>
-                            <button>
+                            <button @click.prevent="addToCart(product)">
                                 <img src="./cart.png" alt="Zum Warenkorb hinzufügen" width="15"/>
                             </button>
                         </div>
                     </div>
                     <div class="image">
-                      <img src="cart.png" alt="Your Image">
+                      <img src="cart.png">
                     </div>
                 </div>
             </ul>

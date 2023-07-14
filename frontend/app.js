@@ -21,8 +21,13 @@ Vue.createApp({
           }
         ],
         products: [],
-        cart: []
+        cart: [],
       };
+    },
+    methods: {
+      addToCart(product) {
+        this.cart.push(product);
+      }
     },
     mounted() {
       fetch('http://frog.lowkey.gay/vyralux/api/v1/items')
