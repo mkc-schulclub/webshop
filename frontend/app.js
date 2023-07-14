@@ -10,7 +10,7 @@ Vue.createApp({
             content: 'Willkommen im online Merch-Shop des Max-Klinger-Schulclubs!'
           },
           {
-            link: { text: 'Warenkorb', url: 'cart.html' },
+            link: { text: `Warenkorb`, url: 'cart.html' },
             pageTitle: 'Warenkorb',
             content: 'Hier wird der Warenkorb sein'
           },
@@ -20,7 +20,8 @@ Vue.createApp({
             content: 'This is the contact content'
           }
         ],
-        products: []
+        products: [],
+        cart: []
       };
     },
     mounted() {

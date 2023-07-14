@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MKC Shop</title>
     <script src="https://unpkg.com/vue@3"></script>
+    <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="./app.js" defer></script>
 </head>
 <body>
-    <nav 
-        class="navbar navbar-expand-lg"
-        :class="{'navbar-light bg-light': !darkmode, 'navbar-brand bg-dark': darkmode}"
-    >
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">MKC Merch-Store</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -24,35 +22,36 @@
                         :href="page.link.url"
                         :title="`This link goes to the ${page.link.text} page`"
                         @click.prevent="activePage = index"
-                        >{{ page.link.text }}
+                        >{{page.link.text }}
+                        <span class="item-count" v-if="index === 1">
+                            ({{ cart.length }})
+                        </span>
                     </a>
                 </li>
             </ul>
-            <!-- <form class="d-flex">
-                <button
-                    class="btn btn-primary"
-                    @click.prevent="darkmode = !darkmode"
-                >Toggle darkmode</button>
-            </form> -->
         </div>
     </nav>
-
     <div id="content" class="container">
         <h1>{{ pages[activePage].pageTitle }}</h1>
         <p>{{ pages[activePage].content }}</p>
-     
-        <div v-if="activePage === 0">
+        <div class="products" v-if="activePage === 0">
             <h2>Produkte</h2>
             <ul v-for="(product, index) in products" :key="index">
-                <h3>{{ product.name }}</h3>
-                Größen: {{ product.has_size }}
-                Motive: {{ product.motive }}
-                <form class="d-flex">
-                    <button
-                        class="btn btn-primary"
-                        @click.prevent="darkmode = !darkmode"
-                    >W</button>
-                </form>
+                <div class="productcontainer">
+                    <div class="text">
+                        <h3>{{ product.name }}</h3>
+                        Größen: {{ product.has_size }}
+                        Motive: {{ product.motive }} <br>
+                        <div>
+                            <button>
+                                <img src="./cart.png" alt="Zum Warenkorb hinzufügen" width="15"/>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="image">
+                      <img src="cart.png" alt="Your Image">
+                    </div>
+                </div>
             </ul>
         </div>
         </div>
