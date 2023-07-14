@@ -3,7 +3,8 @@ from .depends import (
     validate_sig,
     validate_session,
     bool_from_string,
-    ShopException
+    ShopException,
+    generate_session
 )
 from logging import getLogger
 
