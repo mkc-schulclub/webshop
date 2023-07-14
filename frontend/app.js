@@ -3,6 +3,7 @@ Vue.createApp({
     return {
       activePage: 0,
       darkmode: false,
+      errorPopup: false,
       pages: [
         {
           link: { text: "Home", url: "index.html" },
@@ -170,6 +171,7 @@ Vue.createApp({
         this.products = data;
       })
       .catch((error) => {
+        errorPopup = true;
         console.error("Error fetching data:", error);
       });
     this.loadCurrent();
