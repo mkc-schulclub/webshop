@@ -7,8 +7,11 @@ Der Webshop für den Schulmerch
   - [x] Sichere API
   - [ ] Guter Code
   - [x] Kommunikation mit DB
+  - [ ] DB Befüllen mit echten Daten
 - Frontend
-  - [ ] Funktionierende Oberfläche zum Bestellen (User Interface)
+  - [X] Funktionierende Oberfläche zum Bestellen (User Interface)
+  - [ ] Anzahl von Artikeln
+  - [ ] Conditional Anzeigen alles
   - [ ] Funktionierende Oberfläche zum Hinzufügen/Bearbeiten (Admin Interface)
-  - [ ] Kommunikation mit Backend
+  - [X] Kommunikation mit Backend
   - [ ] Schönes Design
