@@ -25,6 +25,17 @@ Vue.createApp({
       };
     },
     methods: {
+      saveCurrent() {
+        localStorage.setItem('activePage', JSON.stringify(this.activePage));
+      },
+      loadCurrent() {
+        const page = localStorage.getItem('activePage');
+        if (page && page >= 0 && page < this.pages.length) {
+          this.activePage = JSON.parse(page);
+        } else {
+          this.activePage = 0; // Set to the index of the home page as a fallback
+        }
+      },
       addToCart(product) {
         this.cart.push(product);
         localStorage.setItem('cart', JSON.stringify(this.cart));
@@ -40,8 +51,12 @@ Vue.createApp({
         }
       }
     },
+    watch: {
+      activePage() {
+        this.saveCurrent();
+      },
+    },
     mounted() {
-      this.loadCartFromLocal();
       fetch('http://frog.lowkey.gay/vyralux/api/v1/items')
         .then(response => response.json())
         .then(data => {
@@ -50,5 +65,7 @@ Vue.createApp({
         .catch(error => {
           console.error('Error fetching data:', error);
         });
+      this.loadCurrent()
+      this.loadCartFromLocal();
     }
   }).mount('body');
