@@ -35,6 +35,7 @@
     <div id="content" class="container">
         <h1>{{ pages[activePage].pageTitle }}</h1>
         <p>{{ pages[activePage].content }}</p>
+        <p v-if="activePage == 1 && !cart.length">{{ "Der Warenkorb ist leer" }}</p>
         <div class="products" v-if="activePage === 0">
             <h2>Produkte</h2>
             <ul v-for="(product, index) in products" :key="index">
@@ -93,14 +94,13 @@
                     <ul><b>Preis:</b> {{ `${product.price}€` }}</ul>
                     <div>
                         <button @click.prevent="removeFromCart(product)">
-                            <img src="./images/" alt="Aus dem Warenkorb entfernen" width="15"/>
+                            <img src="./images/bin.png" alt="Aus dem Warenkorb entfernen" width="15"/>
                         </button>
                     </div>
                 </div>
             </ul>
+            <button v-if="cart.length" class="submitCartBtn" @click.prevent="submitCart()">Bestellformular herunterladen</button>
         </div>
-        <button @click.prevent="submitCart()">
-        </button>
     </div>
 </body>
 </html>

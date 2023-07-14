@@ -12,7 +12,7 @@ Vue.createApp({
           {
             link: { text: `Warenkorb`, url: 'cart.html' },
             pageTitle: 'Warenkorb',
-            content: 'Hier wird der Warenkorb sein'
+            content: ''
           },
           {
             link: { text: 'Schulclub', url: 'contact.html' },
