@@ -79,6 +79,29 @@ Vue.createApp({
           .catch(error => {
             console.error('Error:', error);
           });
+      },
+      propertiesSelected(product) {
+        if (product.colors && product.colors.length > 0) {
+          if (!product.selectedColor) {
+            return false;
+          }
+        }
+        if (product.sizes && product.sizes.length > 0) {
+          if (!product.selectedSize) {
+            return false;
+          }
+        }
+        if (product.motives && product.motives.length > 0) {
+          if (!product.selectedMotive) {
+            return false;
+          }
+        }
+        if (product.variations && product.variations.length > 0) {
+          if (!product.selectedVariation) {
+            return false;
+          }
+        }
+        return true;
       }
     },
     watch: {
