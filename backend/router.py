@@ -18,7 +18,7 @@ class Product(BaseModel):
     # TODO: #3 finish adding attributes
     name:       str
     prod_id:    str
-    variations: Optional[List[str, str]]   = {}
+    variations: Optional[List[List[str]]]   = {}
     colors:     Optional[List[str]]         = []
     sizes:      Optional[List[str]]         = []
     motives:    Optional[List[str]]         = []
