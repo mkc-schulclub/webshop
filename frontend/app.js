@@ -42,12 +42,15 @@ Vue.createApp({
           prod_id: product.prod_id,
           size: product.selectedSize,
           color: product.selectedColor,
-          motive: {
+          motive: product.selectedMotive ? {
             [product.selectedMotive[0]]: product.selectedMotive[1]
-          }
+          } : {},
+          variation: product.selectedVariation ? {
+            [product.selectedVariation[0]]: product.selectedVariation[1]
+          }: {}
           };
         this.cart.push(selectedItem);
-        localStorage.setItem('cart', JSON.stringify(Array.from(this.cart)));
+        localStorage.setItem('cart', JSON.stringify(this.cart));
         console.log(localStorage.getItem('cart'))
       },
       removeFromCart(index) {
@@ -57,22 +60,16 @@ Vue.createApp({
       loadCartFromLocal() {
         const cartData = localStorage.getItem('cart');
         if (cartData) {
-          this.cart = Array.from(JSON.parse(cartData));
+          this.cart = JSON.parse(cartData);
         }
       },
       submitCart() {
         const url = 'http://frog.lowkey.gay/vyralux/api/v1/order';
-        cartContent = JSON.parse(localStorage.getItem('cart'))
-        console.log(cartContent)
-        const data = {
-          cart: cartContent
-        };
         const options = {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: data
+          headers: 
+            new Headers({'content-type': 'application/json'}),
+          body: localStorage.getItem('cart')
         };
         fetch(url, options)
           .then(response => response.json())

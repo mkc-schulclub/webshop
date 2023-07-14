@@ -51,22 +51,22 @@
                         <option v-for="color in product.colors" :key="color" :value="color">{{ color }}</option>
                         </select>
                         <br>
-                        <span v-if="product.motives !== []"> 
+                        <span v-if="product.motives && product.motives.length > 0"> 
                             Motive:
                             <select v-model="product.selectedMotive">
-                                <option v-for="motive in product.motives" :key="motive[0]" :value="motive">{{ motive[1] }}</option>
+                              <option v-for="motive in product.motives" :key="motive[0]" :value="motive">{{ motive[1] }}</option>
                             </select>
-                        </span>
-                        <span v-if="product.variations !== []"> 
+                          </span>
+                          <span v-if="product.variations && product.variations.length > 0"> 
                             Variationen:
-                            <select v-model="product.selectedMotive">
-                                <option v-for="variation in product.variations" :key="variation[0]" :value="variation">{{ variation[1] }}</option>
+                            <select v-model="product.selectedVariation">
+                              <option v-for="variation in product.variations" :key="variation[0]" :value="variation">{{ variation[1] }}</option>
                             </select>
-                        </span>
+                          </span>
                         <div>
-                            <button @click.prevent="addToCart(product)" :disabled="!product.selectedSize || !product.selectedColor || !product.selectedMotive" :class="{ 'disabled-button': !product.selectedSize || !product.selectedColor || !product.selectedMotive }">
+                            <button @click.prevent="addToCart(product)" :disabled="!product.selectedSize || !product.selectedColor || (!product.selectedMotive && !product.selectedVariation)" :class="{ 'disabled-button': !product.selectedSize || !product.selectedColor || (!product.selectedMotive && !product.selectedVariation) }">
                                 <img src="./images/cart.png" alt="Zum Warenkorb hinzufügen" width="15"/>
-                            </button>                             
+                              </button>                                                          
                         </div>
                     </div>
                     <div class="image" style="width: 600vh; height: auto;">
@@ -76,7 +76,7 @@
             </div>
             </ul>  
         </div>
-
+  
         <div class="cart" v-if="activePage === 1">
             <ul v-for="(product, index) in cart" :key="index">
                 <div>
