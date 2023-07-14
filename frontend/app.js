@@ -105,11 +105,23 @@ Vue.createApp({
         fetch(url, options)
           .then(response => response.json())
           .then(data => {
-            console.log(data);
+            this.downloadFile(data.files[0]);
           })
           .catch(error => {
             console.error('Error:', error);
           });
+      },
+      downloadFile(pdfUrl) {
+        const anchor = document.createElement('a');
+        anchor.style.display = 'none';
+        document.body.appendChild(anchor);
+        
+        anchor.setAttribute('download', 'file.pdf');
+        anchor.setAttribute('href', pdfUrl);
+        
+        anchor.click();
+        
+        document.body.removeChild(anchor);
       },
       propertiesSelected(product) {
         if (product.colors && product.colors.length > 0) {
