@@ -44,12 +44,12 @@
                         Motive: {{ product.motive }} <br>
                         <div>
                             <button @click.prevent="addToCart(product)">
-                                <img src="./cart.png" alt="Zum Warenkorb hinzufügen" width="15"/>
+                                <img src="./images/cart.png" alt="Zum Warenkorb hinzufügen" width="15"/>
                             </button>
                         </div>
                     </div>
                     <div class="image">
-                      <img src="cart.png">
+                      <img src="./images/cart.png">
                     </div>
                 </div>
             </ul>
@@ -60,7 +60,7 @@
                 <h3>{{ product.name }}</h3>
                 <div>
                     <button @click.prevent="removeFromCart(product)">
-                        <img src="./cart.png" alt="Aus dem Warenkorb entfernen" width="15"/>
+                        <img src="./images/cart.png" alt="Aus dem Warenkorb entfernen" width="15"/>
                     </button>
                 </div>
             </ul>
