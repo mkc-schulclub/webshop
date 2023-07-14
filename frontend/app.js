@@ -49,7 +49,7 @@ Vue.createApp({
             [product.selectedVariation[0]]: product.selectedVariation[1]
           } : null,
           price: product.price,
-          quantity: 1
+          amount: 1
         };
         const existingItemIndex = this.cart.findIndex((item) => {
           return (
@@ -61,7 +61,7 @@ Vue.createApp({
           );
         });
         if (existingItemIndex !== -1) {
-          this.cart[existingItemIndex].quantity++;
+          this.cart[existingItemIndex].amount++;
         } else {
           selectedItem.quantity = 1;
           this.cart.push(selectedItem);
