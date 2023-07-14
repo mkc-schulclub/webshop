@@ -15,7 +15,7 @@ router = APIRouter(
 )
 
 class Item(BaseModel):
-    # TODO: finish adding attributes
+    # TODO: #3 finish adding attributes
     name:       str
     color:      Optional[str]   = ""
     size:       Optional[str]   = ""

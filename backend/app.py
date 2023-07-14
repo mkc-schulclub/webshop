@@ -15,7 +15,7 @@ app = FastAPI(
 async def shopexception(request: Request, exc: ShopException):
     LOGGER.warning(f"Faced ShopException: [{exc.code}] {exc.debug or exc.message}")
     return JSONResponse(
-        status_code=418,
+        status_code=218,
         content={
             "api:statuscode": exc.code,
             "api:message": exc.message,
