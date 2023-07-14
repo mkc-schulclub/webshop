@@ -13,6 +13,7 @@ if __name__ == "__main__":
     port = int(os.getenv("PORT", 1337))
     host = os.getenv("HOST", "0.0.0.0")
     debug = bool_from_string(os.getenv("DEBUG")) # reload if debug
+    EXCLUDES = ["*.out", "frontend/*", "*.pdf"]
     if bool_from_string(os.getenv("USE_SSL", "false")):
         uvicorn.run(
             "app:app",
@@ -20,7 +21,14 @@ if __name__ == "__main__":
             host=host,
             ssl_keyfile=os.getenv("KEY_PATH"),
             ssl_certfile=os.getenv("CRT_PATH"),
-            reload=debug
+            reload=debug,
+            reload_excludes=EXCLUDES
         )
     else:
-        uvicorn.run("app:app", port=port, host=host, reload=debug)
+        uvicorn.run(
+            "app:app",
+            port=port,
+            host=host,
+            reload=debug,
+            reload_excludes=EXCLUDES
+        )
