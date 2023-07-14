@@ -52,11 +52,11 @@ class Product(BaseModel):
 class Item(BaseModel):
     name:      str
     prod_id:   str
-    amount:    int           = 1
-    variation: Optional[str] = ""
-    color:     Optional[str] = ""
-    size:      Optional[str] = ""
-    motive:    Optional[str] = ""
+    amount:    int                      = 1
+    variation: Optional[dict[str, str]] = {}
+    color:     Optional[str]            = ""
+    size:      Optional[str]            = ""
+    motive:    Optional[dict[str, str]] = {}
 
 
 @router.get("/items")
@@ -94,7 +94,12 @@ async def order(items: List[Item]):
         product = await db.items.find_one({"prod_id": item.prod_id})
         if not product:
             raise ShopException(404, "Non Existant Product", "Tried to specify a product that doesnt exist in the database")
-        data[f"ProduktnrRow{index+1}"] = f"{item.prod_id}{item.motive or item.variation}"
+        maybe_variation = (item.motive.keys() or item.variation.keys())
+        if maybe_variation:
+            maybe_variation = list(maybe_variation)[0]
+        else:
+            maybe_variation = ""
+        data[f"ProduktnrRow{index+1}"] = f"{item.prod_id}{maybe_variation}"
         data[f"FarbeRow{index+1}"]  = f"{item.color or '---'}"
         data[f"GrößeRow{index+1}"]  = f"{item.size or '---'}"
         data[f"AnzahlRow{index+1}"] = f"{item.amount}"
