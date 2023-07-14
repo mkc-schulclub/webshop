@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from starlette.middleware.cors import CORSMiddleware
 
 from extras import ShopException, LOGGER
 from router import router
@@ -23,5 +24,6 @@ async def shopexception(request: Request, exc: ShopException):
         },
     )
 
+app.add_middleware(CORSMiddleware, allow_origins=["*"],  allow_credentials=True, allow_methods=["*"], allow_headers=["*"], )
 
 app.include_router(router)
