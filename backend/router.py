@@ -75,6 +75,11 @@ async def addItem(item: Product):
     await db.insert_one(item)
     return item
 
+@router.options(
+    "/order"
+)
+async def order_preflight():
+    return {}
 
 @router.post(
     "/order",
