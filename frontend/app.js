@@ -33,7 +33,7 @@ Vue.createApp({
         if (page && page >= 0 && page < this.pages.length) {
           this.activePage = JSON.parse(page);
         } else {
-          this.activePage = 0; // Set to the index of the home page as a fallback
+          this.activePage = 0;
         }
       },
       addToCart(product) {
