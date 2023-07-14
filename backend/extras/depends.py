@@ -2,6 +2,7 @@ import os
 from base64 import b64decode
 from hashlib import sha256
 from hmac import HMAC
+from time import time
 
 import dotenv
 import jwt
@@ -58,3 +59,16 @@ async def validate_session(ndcauth: str = Header(default="")) -> None:
             raise ShopException(404, "Invalid Session", "JWT validation succeeded, but session was removed from db")
     except jwt.PyJWTError as exc:
         raise ShopException(404, "Invalid Session", f"JWT validation failed: {exc}")
+
+_time = lambda: int(time())
+
+def generate_session(uid: str) -> str:
+    return jwt.encode(
+        {
+            "exp": 86400 + _time(),  # Session expires after 1 day
+            "iat": _time(),
+            "nbf": _time(),
+            "uid": uid,
+        },
+        key=SES_KEY,
+    )

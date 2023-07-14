@@ -21,4 +21,8 @@ if __name__ == "__main__":
             ssl_certfile=os.getenv("CRT_PATH"),
         )
     else:
-        uvicorn.run("app:app", port=port, host=host)
+        uvicorn.run(
+            "app:app",
+            port=port,
+            host=host,
+        )
