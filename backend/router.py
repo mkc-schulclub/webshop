@@ -10,8 +10,13 @@ from fastapi import APIRouter, Depends, Request
 from fillpdf import fillpdfs
 from pydantic import BaseModel
 
-from extras import (ShopException, db, generate_session, validate_session,
-                    validate_sig)
+from extras import (
+    ShopException,
+    db,
+    generate_session,
+    validate_session,
+    validate_sig
+)
 
 logger = getLogger(__name__)
 
@@ -115,6 +120,37 @@ async def order(items: List[Item]):
     await db.orders.insert_one({"items": [item.dict() for item in items], "date": datetime.now(), "url": response["files"][0]})
     os.remove("out-flat.pdf")
     return response
+
+
+@router.post(
+    "/user",
+    dependencies=[Depends(validate_sig), Depends(validate_session)]
+)
+async def add_user(request: Request):
+    try: out: dict[str, str] = await request.json()
+    except Exception: raise ShopException(455, "Invalid Body", "Couldn't json parse")
+    if not all(key in out.keys() for key in ["name", "password"]) and all(
+        isinstance(out[key], str) for key in ["name", "password"]
+    ):
+        raise ShopException(455, "Invalid Body", "name or password missing or of invalid type")
+
+    if not out["name"] or not out["password"]:
+        raise ShopException(455, "Invalid Body", "name or password empty")
+    
+    user = await db.users.find_one({"name": out["name"]})
+    
+    if user:
+        raise ShopException(457, "User already Exists", "User already found in database")
+    
+    password = bcrypt.hashpw(out["password"].encode(), bcrypt.gensalt()).decode()
+
+    await db.users.insert_one({
+        "name": out["name"],
+        "secret": password
+    })
+    
+    return {}
+    
 
 
 @router.post(
