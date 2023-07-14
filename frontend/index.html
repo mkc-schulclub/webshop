@@ -92,6 +92,7 @@
                     <ul v-if="product.motive"><b>Motiv:</b> {{ Object.values(product.motive)[0] }}</ul>
                     <ul v-if="product.variation"><b>Variation:</b> {{ Object.values(product.variation)[0] }}</ul>
                     <ul><b>Preis:</b> {{ `${product.price}€` }}</ul>
+                    <ul><b>Anzahl:</b>{{ product.quantity }}</ul>
                     <div>
                         <button @click.prevent="removeFromCart(product)">
                             <img src="./images/bin.png" alt="Aus dem Warenkorb entfernen" width="15"/>

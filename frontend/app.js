@@ -47,13 +47,29 @@ Vue.createApp({
           } : null,
           variation: product.selectedVariation ? {
             [product.selectedVariation[0]]: product.selectedVariation[1]
-          }: null,
-          price: product.price
+          } : null,
+          price: product.price,
+          quantity: 1
         };
-        this.cart.push(selectedItem);
+        const existingItemIndex = this.cart.findIndex((item) => {
+          return (
+            item.name === selectedItem.name &&
+            item.size === selectedItem.size &&
+            item.color === selectedItem.color &&
+            JSON.stringify(item.motive) === JSON.stringify(selectedItem.motive) &&
+            JSON.stringify(item.variation) === JSON.stringify(selectedItem.variation)
+          );
+        });
+        if (existingItemIndex !== -1) {
+          this.cart[existingItemIndex].quantity++;
+        } else {
+          selectedItem.quantity = 1;
+          this.cart.push(selectedItem);
+        }
         localStorage.setItem('cart', JSON.stringify(this.cart));
-        console.log(localStorage.getItem('cart'))
+        console.log(localStorage.getItem('cart'));
       },
+      
       removeFromCart(index) {
           this.cart.splice(index, 1);
           localStorage.setItem('cart', JSON.stringify(this.cart));
