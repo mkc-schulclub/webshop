@@ -47,8 +47,8 @@ Vue.createApp({
           }
           };
         this.cart.push(selectedItem);
-        console.log(this.cart)
-        localStorage.setItem('cart', JSON.stringify(this.cart));
+        localStorage.setItem('cart', JSON.stringify(Array.from(this.cart)));
+        console.log(localStorage.getItem('cart'))
       },
       removeFromCart(index) {
           this.cart.splice(index, 1);
@@ -59,6 +59,29 @@ Vue.createApp({
         if (cartData) {
           this.cart = Array.from(JSON.parse(cartData));
         }
+      },
+      submitCart() {
+        const url = 'http://frog.lowkey.gay/vyralux/api/v1/order';
+        cartContent = JSON.parse(localStorage.getItem('cart'))
+        console.log(cartContent)
+        const data = {
+          cart: cartContent
+        };
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: data
+        };
+        fetch(url, options)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
       }
     },
     watch: {
