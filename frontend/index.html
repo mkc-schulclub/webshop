@@ -54,7 +54,13 @@
                 </div>
             </ul>
         </div>
+
+        <div class="cart" v-if="activePage === 1">
+            <ul v-for="(product, index) in cart" :key="index">
+                <h3>{{ product.name }}</h3>
+            </ul>
         </div>
+
     </div>
 </body>
 </html>
