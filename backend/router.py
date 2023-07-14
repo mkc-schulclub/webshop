@@ -108,10 +108,12 @@ async def order(items: List[Item]):
     data["Price"] = str(total)
     data["Date1"] = data["Date2"] = time.strftime("%d.%m.%Y")
     fillpdfs.write_fillable_pdf("backend/static/formular.pdf", "out.pdf", data)
-    async with ClientSession() as session:
-        response = await upload(session, "out.pdf")
-    await db.orders.insert_one({"items": [item.dict() for item in items], "date": datetime.now(), "url": response["files"][0]})
+    fillpdfs.flatten_pdf("out.pdf", "out-flat.pdf")
     os.remove("out.pdf")
+    async with ClientSession() as session:
+        response = await upload(session, "out-flat.pdf")
+    await db.orders.insert_one({"items": [item.dict() for item in items], "date": datetime.now(), "url": response["files"][0]})
+    os.remove("out-flat.pdf")
     return response
 
 
