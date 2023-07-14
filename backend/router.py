@@ -21,7 +21,7 @@ class Product(BaseModel):
     variations: Optional[List[List[str]]]   = {}
     colors:     Optional[List[str]]         = []
     sizes:      Optional[List[str]]         = []
-    motives:    Optional[List[str]]         = []
+    motives:    Optional[List[List[str]]]         = []
 
 
 @router.get("/items")
