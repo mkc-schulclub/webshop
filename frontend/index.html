@@ -37,37 +37,61 @@
     </nav>
 
     <div id="content" class="container">
+        
         <h1>{{ pages[activePage].pageTitle }}</h1>
         <p>{{ pages[activePage].content }}</p>
-    </div>   
+     
+        <div v-if="activePage === 0">
+            <h2>Produkte</h2>
+            <ul>
+            <li v-for="(product, index) in products" :key="index">
+                {{ product.name }}
+            </li>
+            </ul>
+        </div>
+        </div>
+
+    </div>  
 
     <script>
         Vue.createApp({
-            data() {
-                return {
-                    activePage: 0,
-                    darkmode: false,
-                    pages: [
-                        {
-                            link: {text: 'Home', url: 'index.html'},
-                            pageTitle: 'Homepage',
-                            content: 'This is the home content'
-                        },
-                        {
-                            link: {text: 'Warenkorb', url: 'cart.html'},
-                            pageTitle: 'Warenkorb',
-                            content: 'Hier wird der Warenkorb sein'
-                        },
-                        {
-                            link: {text: 'Contact', url: 'contact.html'},
-                            pageTitle: 'Contact Page',
-                            content: 'This is the contact content'
-                        }
-                    ]
+          data() {
+            return {
+              activePage: 0,
+              darkmode: false,
+              pages: [
+                {
+                  link: { text: 'Home', url: 'index.html' },
+                  pageTitle: 'Homepage',
+                  content: 'This is the home content'
+                },
+                {
+                  link: { text: 'Warenkorb', url: 'cart.html' },
+                  pageTitle: 'Warenkorb',
+                  content: 'Hier wird der Warenkorb sein'
+                },
+                {
+                  link: { text: 'Contact', url: 'contact.html' },
+                  pageTitle: 'Contact Page',
+                  content: 'This is the contact content'
                 }
-            }
+              ],
+              products: []
+            };
+          },
+          mounted() {
+            // Make an HTTP request to your API endpoint
+            fetch('http://frog.lowkey.gay/vyralux/api/v1/items')
+              .then(response => response.json())
+              .then(data => {
+                this.products = data;
+              })
+              .catch(error => {
+                console.error('Error fetching data:', error);
+              });
+          }
         }).mount('body');
-    </script>
+      </script>
 </body>
 </html>
 
