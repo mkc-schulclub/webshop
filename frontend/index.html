@@ -37,7 +37,7 @@
     </nav>
 
     <div id="content" class="container">
-        
+
         <h1>{{ pages[activePage].pageTitle }}</h1>
         <p>{{ pages[activePage].content }}</p>
      
@@ -80,7 +80,6 @@
             };
           },
           mounted() {
-            // Make an HTTP request to your API endpoint
             fetch('http://frog.lowkey.gay/vyralux/api/v1/items')
               .then(response => response.json())
               .then(data => {
@@ -94,5 +93,3 @@
       </script>
 </body>
 </html>
-
-<!-- computed properties -->
