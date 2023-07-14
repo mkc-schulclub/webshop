@@ -140,6 +140,15 @@ Vue.createApp({
         this.saveCurrent();
       },
     },
+    computed: {
+      cartItemCount() {
+        let totalAmount = 0;
+        for (const item of this.cart) {
+          totalAmount += item.amount;
+        }
+        return totalAmount;
+      }
+    },
     mounted() {
       fetch('http://frog.lowkey.gay/vyralux/api/v1/items')
         .then(response => response.json())
