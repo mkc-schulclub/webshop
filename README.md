@@ -10,8 +10,8 @@ Der Webshop für den Schulmerch
   - [ ] DB Befüllen mit echten Daten
 - Frontend
   - [X] Funktionierende Oberfläche zum Bestellen (User Interface)
-  - [ ] Anzahl von Artikeln
-  - [ ] Conditional Anzeigen alles
+  - [X] Anzahl von Artikeln
+  - [X] Conditional Anzeigen alles
   - [ ] Funktionierende Oberfläche zum Hinzufügen/Bearbeiten (Admin Interface)
   - [X] Kommunikation mit Backend
   - [ ] Schönes Design
