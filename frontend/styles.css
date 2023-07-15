@@ -2,7 +2,6 @@ html, body {
   max-width: 100%;
   overflow-x: hidden;
 }
-
 .products {
     align-self: center;
     text-align: center;
@@ -46,6 +45,7 @@ html, body {
   align-content: center;
   align-self: center;
   margin-left: 40%;
+  margin-bottom: 30px;
 }
 @media (max-width: 1000px) {
   #navcontent {
@@ -57,18 +57,17 @@ html, body {
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
   }
-
   #navcontent .nav-item {
     white-space: nowrap;
     margin: 0 3vh;
   }
-
   .navbar-brand {
     margin-left: 4vh;
   }
 }
-
-
+.navbar-brand {
+  margin-left: 30px;
+}
 .dialog-overlay {
   position: fixed;
   top: 0;
@@ -80,7 +79,6 @@ html, body {
   justify-content: center;
   align-items: center;
 }
-
 .dialog-content {
   background-color: white;
   padding: 20px;

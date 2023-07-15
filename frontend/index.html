@@ -12,7 +12,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#">MKC Merch-Store</a>
+        <a class="navbar-brand" href="" @click.prevent="activePage = 0">MKC Merch-Store</a>
         <div class="container-fluid">
             <ul id="navcontent" class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li v-for="(page, index) in pages" class="nav-item" :key="index">
