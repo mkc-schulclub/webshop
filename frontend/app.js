@@ -24,6 +24,7 @@ Vue.createApp({
       ],
       products: [],
       cart: [],
+      pdf: ""
     };
   },
   methods: {
@@ -130,6 +131,7 @@ Vue.createApp({
         });
     },
     downloadFile(pdfUrl) {
+      this.pdf = pdfUrl
       const anchor = document.createElement("a");
       anchor.style.display = "none";
       document.body.appendChild(anchor);
