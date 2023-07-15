@@ -9,7 +9,7 @@ Vue.createApp({
             link: { text: "Admin", url: "index.html" },
             pageTitle: "Admin",
             content:
-              "Admin-oberfläche online Merch-Shop des Max-Klinger-Schulclubs!",
+              "Admin-oberfläche des Merch-Shops!",
           },
           {
             link: { text: `Produkte`, url: "products.html" },
@@ -17,17 +17,36 @@ Vue.createApp({
             content: "Hier können produkte hinzugefügt, modifiziert und gelöscht werden",
           },
           {
-            link: { text: "Zeug", url: "other.html" },
-            pageTitle: "Zeug",
-            content: "Hier kann anderes Zeug hin",
+            link: { text: "Buchhaltung", url: "stats.html" },
+            pageTitle: "Buchhaltung",
+            content: "Hier kann Buchhaltung hin",
+          },
+          {
+            link: { text: "Logout", url: "" },
+            pageTitle: "",
+            content: "",
           },
         ],
         products: [],
       };
     },
     methods: {
+      saveCurrent() {
+        localStorage.setItem("activePage", JSON.stringify(this.activePage));
+      },
+      loadCurrent() {
+        const page = localStorage.getItem("activePage");
+        if (page && page >= 0 && page < this.pages.length) {
+          this.activePage = JSON.parse(page);
+        } else {
+          this.activePage = 0;
+        }
+      },
     },
     watch: {
+      activePage() {
+        this.saveCurrent();
+      },
     },
     computed: {
     },
@@ -41,6 +60,7 @@ Vue.createApp({
           errorPopup = true;
           console.error("Error fetching data:", error);
         });
+        this.loadCurrent()
     },
   }).mount("body");
   

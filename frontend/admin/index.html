@@ -32,5 +32,22 @@
     <div id="content" class="container">
         <h1>{{ pages[activePage].pageTitle }}</h1>
         <p>{{ pages[activePage].content }}</p>
+        <div class="products" v-if="activePage === 1">
+            <h2>Liste aller Produkte:</h2><br>
+            <ul v-for="(product, index) in products" :key="index">
+                <div class="productcontainer">
+                    <div class="text">
+                        <h3>Name: {{ product.name }}</h3>
+                        <h4>ID: {{ product.prod_id }}</h4>
+                        <h4>Farben: {{ product.colors.join(", ") }}</h4>
+                        <h4>Größen: {{ product.sizes.join(", ") }}</h4>
+                        <h4>Motive: {{ product.motives.join(", ") }}</h4>
+                        <h4>Variationen: {{ product.variations.join(", ") }}</h4>
+                        <br>
+                    </div>                                                                                    
+                </div>
+            </ul>
+        </div>        
+    </div>
 </body>
 </html>
