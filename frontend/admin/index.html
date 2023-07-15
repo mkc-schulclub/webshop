@@ -49,5 +49,35 @@
             </ul>
         </div>        
     </div>
+    <div v-if="activePage === 0">
+        <h2>Produkte hinzufügen</h2>
+        <form>
+          <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" v-model="product.name" required />
+          </div>
+          <div>
+            <label for="prod_id">Produkt-ID:</label>
+            <input type="text" id="prod_id" v-model="product.prod_id" required />
+          </div>
+          <div>
+            <label for="sizes">Größen:</label>
+            <input type="text" id="prod_id" v-model="product.sizes" />
+          </div>
+          <div>
+            <label for="colors">Farben:</label>
+            <input type="text" id="prod_id" v-model="product.colors" />
+          </div>
+          <div>
+            <label for="colors">Variationen:</label>
+            <input type="text" id="prod_id" v-model="product.variations" />
+          </div>
+          <div>
+            <label for="colors">Motive:</label>
+            <input type="text" id="prod_id" v-model="product.motives" />
+          </div>
+          <button @click.prevent="addProduct" type="reset">Hinzufügen</button>
+        </form>
+      </div>
 </body>
 </html>

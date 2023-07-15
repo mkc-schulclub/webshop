@@ -28,9 +28,31 @@ Vue.createApp({
           },
         ],
         products: [],
+        product: {
+          name: '',
+          prod_id: '',
+          sizes: [],
+          colors: [],
+          motives: [],
+          variations: []
+        },
       };
     },
     methods: {
+      addProduct() {
+        console.log("okkk")
+        newProduct = {
+          name: this.product.name,
+          prod_id: this.product.prod_id,
+          sizes: this.product.sizes,
+          colors: this.product.colors,
+          motives: this.product.motives.split(", ").map((motive, index) => [index + 1, motive]),
+          variations: this.product.variations.split(", ").map((variation, index) => [index + 1, variation])
+        }
+        console.log(newProduct)
+        // send to backend, get response and tell admin the result
+      },
+      
       saveCurrent() {
         localStorage.setItem("activePage", JSON.stringify(this.activePage));
       },
