@@ -51,7 +51,7 @@ Vue.createApp({
     computed: {
     },
     mounted() {
-      fetch("http://frog.lowkey.gay/vyralux/api/v1/items")
+      fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
         .then((response) => response.json())
         .then((data) => {
           this.products = data;

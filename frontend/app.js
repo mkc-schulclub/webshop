@@ -102,7 +102,7 @@ Vue.createApp({
       }
     },
     submitCart() {
-      const url = "http://frog.lowkey.gay/vyralux/api/v1/order";
+      const url = "https://frog.lowkey.gay/vyralux/api/v1/order";
       const options = {
         method: "POST",
         headers: new Headers({ "content-type": "application/json" }),
@@ -165,7 +165,7 @@ Vue.createApp({
     },
   },
   mounted() {
-    fetch("http://frog.lowkey.gay/vyralux/api/v1/items")
+    fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
       .then((response) => response.json())
       .then((data) => {
         this.products = data;
