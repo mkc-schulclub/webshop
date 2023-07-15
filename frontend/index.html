@@ -12,9 +12,9 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">MKC Merch-Store</a>
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">MKC Merch-Store</a>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul id="navcontent" class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li v-for="(page, index) in pages" class="nav-item" :key="index">
                     <a 
                         class="nav-link"
@@ -38,11 +38,12 @@
         <p>{{ pages[activePage].content }}</p>
         <p v-if="activePage == 1 && !cart.length">{{ "Der Warenkorb ist leer" }}</p>
         <div class="products" v-if="activePage === 0">
-            <h2>Produkte</h2>
+            <h2>Produkte</h2><br>
             <ul v-for="(product, index) in products" :key="index">
                 <div class="productcontainer">
                     <div class="text">
                         <h3>{{ product.name }}</h3>
+                        <div class="selections">
                         <span v-if="product.sizes && product.sizes.length > 0">
                             Größen:
                             <select v-model="product.selectedSize">
@@ -69,17 +70,18 @@
                             </select>
                           </span>
                         <div>
-                            <button @click.prevent="addToCart(product)" :disabled="!propertiesSelected(product)" :class="{ 'disabled-button': !propertiesSelected(product) }">
-                                <img src="./images/cart.png" alt="Zum Warenkorb hinzufügen" width="15"/>
-                              </button>                                                                                        
                         </div>
+                    </div>
+                    <button @click.prevent="addToCart(product)" :disabled="!propertiesSelected(product)" :class="{ 'disabled-button': !propertiesSelected(product)}">
+                        <img src="./images/cart.png" alt="Zum Warenkorb hinzufügen" width="20"/>
+                    </button>                                                                                        
                     </div>
                     <div class="image" style="width: 600vh; height: auto;">
                         <img src="./images/cart.png">
                     </div>
                 </div>
-            </div>
-            </ul>  
+            </ul>
+        </div>  
         </div>
         <div class="cart" v-if="activePage === 1">
             <ul v-for="(product, index) in cart" :key="index">
