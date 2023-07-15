@@ -24,10 +24,6 @@
                         :title="`This link goes to the ${page.link.text} page`"
                         @click.prevent="activePage = index"
                         >{{ page.link.text }}
-                        <span class="item-count" v-if="index === 1"
-                    >
-                            ({{ cartItemCount }})
-                        </span>
                     </a>
                 </li>
             </ul>
