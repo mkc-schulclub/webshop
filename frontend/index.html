@@ -107,5 +107,14 @@
             <button v-if="cart.length" class="submitCartBtn" @click.prevent="submitCart()">Bestellformular herunterladen</button>
         </div>
     </div>
+        <div>
+          <div v-if="!!popup" class="dialog-overlay">
+            <div class="dialog-content">
+              <h2>{{ popTitle }}</h2>
+              <p>{{ popMessage }}</p>
+              <button @click="closePop">Schließen</button>
+            </div>
+          </div>
+        </div>
 </body>
 </html>

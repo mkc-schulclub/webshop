@@ -3,7 +3,7 @@ Vue.createApp({
     return {
       activePage: 0,
       darkmode: false,
-      errorPopup: false,
+      popup: false,
       pages: [
         {
           link: { text: "Home", url: "index.html" },
@@ -27,6 +27,14 @@ Vue.createApp({
     };
   },
   methods: {
+    openPop(title, message) {
+      this.popTitle = title
+      this.popMessage = message
+      this.popup = true
+    },
+    closePop() {
+      this.popup = false
+    },
     saveCurrent() {
       localStorage.setItem("activePage", JSON.stringify(this.activePage));
     },
@@ -39,6 +47,10 @@ Vue.createApp({
       }
     },
     addToCart(product) {
+      if (this.cart.length >= 5) {
+          return this.openPop("Es liegen bereits 5 verschiedene Produkte im Warenkorb.", 
+          "Weitere Produkte bitte in eine andere Bestellung verlagern.")
+      }
       const selectedItem = {
         name: product.name,
         prod_id: product.prod_id,
@@ -171,7 +183,7 @@ Vue.createApp({
         this.products = data;
       })
       .catch((error) => {
-        errorPopup = true;
+        popup = true;
         console.error("Error fetching data:", error);
       });
     this.loadCurrent();
