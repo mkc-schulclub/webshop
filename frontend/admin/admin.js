@@ -29,6 +29,7 @@ Vue.createApp({
         ],
         error: "",
         products: [],
+        editProduct: {},
         product: {
           name: '',
           prod_id: '',
@@ -41,7 +42,7 @@ Vue.createApp({
     },
     methods: {
       test() {
-        this.product = {
+        this.editProduct = {
           "name": "Klinger Galerie T-Shirt",
           "prod_id": "KGT",
           "variations": [],
@@ -56,14 +57,21 @@ Vue.createApp({
               ["6", "Der pinkelnde Tod"],
               ["7", "Entführung"]
           ]
-      }
+        }
+        this.product.name = this.editProduct.name;
+        this.product.prod_id = this.editProduct.prod_id;
+        this.product.sizes = this.editProduct.sizes ? this.editProduct.sizes : ""
+        this.product.colors = this.editProduct.colors ? this.editProduct.colors : ""
+        this.product.variations = this.editProduct.variations ? this.editProduct.variations.map(variation => variation[1]) : [];
+        this.product.motives = this.editProduct.motives ? this.editProduct.motives.map(motive => motive[1]) : [];
       },
+    
       addProduct() {
         newProduct = {
           name: this.product.name,
           prod_id: this.product.prod_id,
-          sizes: this.product.sizes.length ? this.product.sizes : null,
-          colors: this.product.colors.length ? this.product.colors : null,
+          sizes: this.product.sizes.length ? this.product.sizes.replace(/,(\S)/g, ', $1') : null,
+          colors: this.product.colors.length ? this.product.colors.replace(/,(\S)/g, ', $1') : null,
           motives: this.product.motives.length ? this.product.motives.split(/\s*,\s*|\s+/).map((motive, index) => [index + 1, motive]) : null,
           variations: this.product.variations.length ? this.product.variations.split(/\s*,\s*|\s+/).map((variation, index) => [index + 1, variation]) : null
         }
