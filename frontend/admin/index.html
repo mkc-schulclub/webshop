@@ -49,11 +49,11 @@
             </ul>
         </div>        
     </div>
-    <div v-if="activePage === 0">
+    <div id="productAdd" v-if="activePage === 0">
         <h2>Produkte hinzufügen</h2>
         <h6>Hinweis: Mehrere angaben (wie bei Farben, Größen, Motiven oder Variationen) müssen mit Komma und Leerzeichen getrennt sein.</h6>
         <p style="color: gray;">Bsp.: Motive: Klinger Kopf, MKC Logo</p>
-        <form>
+        <form id="productForm" ref="productForm" @submit.prevent="addProduct">
           <div>
             <label for="name">Name:</label>
             <input type="text" id="name" v-model="product.name" required />
@@ -72,14 +72,21 @@
           </div>
           <div>
             <label for="colors">Variationen:</label>
-            <input type="text" id="prod_id" v-model="product.variations" />
+            <input type="text" id="prod_id" ref="variations" v-model="product.variations" />
           </div>
           <div>
             <label for="colors">Motive:</label>
-            <input type="text" id="prod_id" v-model="product.motives" />
+            <input type="text" id="prod_id" ref="motives" v-model="product.motives" />
           </div>
-          <button @click.prevent="addProduct" type="reset">Hinzufügen</button>
+          <br>
+          <p v-if="false" style="color: green;" > Ein Produkt kann nicht Variationen und Motive gleichzeitig haben.</p>
+          <p v-if="error" style="color: red;" >{{ error }}</p>
+          <br>
+          <button :class="{'disabled-button': product.motives.length && product.variations.length}" type="submit">Hinzufügen</button>
         </form>
+        <button @click.prevent="test" >[test]</button>
       </div>
 </body>
 </html>
+
+<!-- product.motives.length && product.variations.length -->

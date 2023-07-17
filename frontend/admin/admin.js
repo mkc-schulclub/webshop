@@ -27,6 +27,7 @@ Vue.createApp({
             content: "",
           },
         ],
+        error: "",
         products: [],
         product: {
           name: '',
@@ -39,16 +40,34 @@ Vue.createApp({
       };
     },
     methods: {
+      test() {
+        this.product = {
+          "name": "Klinger Galerie T-Shirt",
+          "prod_id": "KGT",
+          "variations": [],
+          "colors": ["rot", "grün", "blau", "schwarz", "chili-red", "weiß", "blün", "prosa"],
+          "sizes": ["S", "M", "L", "XL", "2XL"],
+          "motives": [
+              ["1", "Die Blaue Stunde"],
+              ["2", "Meeresgötter in Brandung"],
+              ["3", "Märztage III"],
+              ["4", "Die Gesandtschaft"],
+              ["5", "Verführung"],
+              ["6", "Der pinkelnde Tod"],
+              ["7", "Entführung"]
+          ]
+      }
+      },
       addProduct() {
-        console.log("okkk")
         newProduct = {
           name: this.product.name,
           prod_id: this.product.prod_id,
-          sizes: this.product.sizes,
-          colors: this.product.colors,
-          motives: this.product.motives.split(", ").map((motive, index) => [index + 1, motive]),
-          variations: this.product.variations.split(", ").map((variation, index) => [index + 1, variation])
+          sizes: this.product.sizes.length ? this.product.sizes : null,
+          colors: this.product.colors.length ? this.product.colors : null,
+          motives: this.product.motives.length ? this.product.motives.split(/\s*,\s*|\s+/).map((motive, index) => [index + 1, motive]) : null,
+          variations: this.product.variations.length ? this.product.variations.split(/\s*,\s*|\s+/).map((variation, index) => [index + 1, variation]) : null
         }
+        this.$refs.productForm.reset()
         console.log(newProduct)
         // send to backend, get response and tell admin the result
       },
@@ -69,6 +88,17 @@ Vue.createApp({
       activePage() {
         this.saveCurrent();
       },
+      product: {
+        deep: true,
+        handler() {
+          if (this.product.motives.length && this.product.variations.length) {
+            this.error = "Ein Produkt kann nicht Variationen und Motive gleichzeitig haben."
+          }
+          else {
+            this.error = ""
+          }
+        }
+      }
     },
     computed: {
     },
