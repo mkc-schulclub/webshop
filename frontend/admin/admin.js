@@ -27,7 +27,9 @@ Vue.createApp({
             content: "",
           },
         ],
+        userSession: localStorage.getItem("session"),
         error: "",
+        surely: false,
         products: [],
         editProduct: {},
         product: {
@@ -67,7 +69,7 @@ Vue.createApp({
         this.product.variations = this.editProduct.variations ? this.editProduct.variations.map(variation => variation[1]) : [];
         this.product.motives = this.editProduct.motives ? this.editProduct.motives.map(motive => motive[1]) : [];
         return
-        fetch('http://127.0.0.1:8080/muffle', {
+        fetch('https://frog.lowkey.gay/vyralux/api/v1/items', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -112,8 +114,8 @@ Vue.createApp({
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'ndc_msg_sig': CryptoJS.HmacSHA256(data, "").toString(CryptoJS.enc.Hex),
-            'ndcauth': ''
+            'ndc_msg_sig': CryptoJS.HmacSHA256(data, "$2b$12$fwOnYqB3jsnF1IzFYtUbBekRJ/ZH/NH/UIYBxqM0zOwvP50J3c0C6").toString(CryptoJS.enc.Hex),
+            'ndcauth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODk2NzkwMTksImlhdCI6MTY4OTU5MjYxOSwibmJmIjoxNjg5NTkyNjE5LCJ1aWQiOiI2NGIxNmUxMWMwNzI5OTdhYmM2NzU4N2MifQ.jJtOOgEJGqY9e9hIKi6WlGJrpCeiYra5L6VGjs8exz4'
           },
           body: data
         })
@@ -133,7 +135,41 @@ Vue.createApp({
             errorPopup = true;
             console.error("Error fetching data:", error);
           });
-        },
+      },
+      deleteProduct(product) {
+        this.editProduct = product
+        data = JSON.stringify(this.editProduct)
+        fetch('https://frog.lowkey.gay/vyralux/api/v1/items', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'ndc_msg_sig': CryptoJS.HmacSHA256(data, "$2b$12$fwOnYqB3jsnF1IzFYtUbBekRJ/ZH/NH/UIYBxqM0zOwvP50J3c0C6").toString(CryptoJS.enc.Hex),
+            'ndcauth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODk2NzkwMTksImlhdCI6MTY4OTU5MjYxOSwibmJmIjoxNjg5NTkyNjE5LCJ1aWQiOiI2NGIxNmUxMWMwNzI5OTdhYmM2NzU4N2MifQ.jJtOOgEJGqY9e9hIKi6WlGJrpCeiYra5L6VGjs8exz4'
+          },
+          body: data
+        })
+        .then(response => {
+          console.log(response.status, response.statusText);
+          if (response.ok) {
+            return response.json();
+          } else {
+            return response.json();
+          }
+          })
+          .then((response) => response.json())
+          .then((data) => {
+            data = ok;
+          })
+          .catch((error) => {
+            errorPopup = true;
+            console.error("Error fetching data:", error);
+          });
+          fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
+          .then((response) => response.json())
+          .then((data) => {
+            this.products = data;
+          })
+      },
       
       saveCurrent() {
         localStorage.setItem("activePage", JSON.stringify(this.activePage));

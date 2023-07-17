@@ -43,9 +43,15 @@
                         <h4>Farben: {{ product.colors.join(", ") }}</h4>
                         <h4>Größen: {{ product.sizes.join(", ") }}</h4>
                         <h4>Motive: {{ product.motives.join(", ") }}</h4>
-                        <h4>Variationen: {{ product.variations.join(", ") }}</h4>
-                        <br>
-                    </div>                                                                                    
+                        <h4>Variationen: {{ product.variations.join(", ") }}</h4> <br>
+                        <button>Bearbeiten</button> <br>
+                        <button v-if="!product.surely" @click="product.surely = true;">Löschen</button> <br>
+                        <div v-if="product.surely">
+                          <p>Wirklich löschen?</p>
+                          <button @click="product.surely = false; console.log(product); deleteProduct(product)" style="background-color: green; margin-right: 30px;">✓</button> 
+                          <button @click="product.surely = false;" style="background-color: red;">X</button>
+                        </div> 
+                    </div>                                                                                   
                 </div>
             </ul>
         </div>        
