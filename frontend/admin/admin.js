@@ -43,27 +43,56 @@ Vue.createApp({
     methods: {
       test() {
         this.editProduct = {
-          "name": "Klinger Galerie T-Shirt",
-          "prod_id": "KGT",
-          "variations": [],
-          "colors": ["rot", "grün", "blau", "schwarz", "chili-red", "weiß", "blün", "prosa"],
-          "sizes": ["S", "M", "L", "XL", "2XL"],
-          "motives": [
-              ["1", "Die Blaue Stunde"],
-              ["2", "Meeresgötter in Brandung"],
-              ["3", "Märztage III"],
-              ["4", "Die Gesandtschaft"],
-              ["5", "Verführung"],
-              ["6", "Der pinkelnde Tod"],
-              ["7", "Entführung"]
-          ]
-        }
+          "name": "Tassen",
+          "prod_id": "TS",
+          "price": "5",
+          "variations": [
+            ["1", "MKC Logo"],
+            ["2", "MK Logo"],
+            ["3", "Klinger Kopf"]
+          ],
+          "colors": [
+            "rot",
+            "grün",
+            "blau"
+          ],
+          "sizes": [],
+          "motives": []
+        },
         this.product.name = this.editProduct.name;
         this.product.prod_id = this.editProduct.prod_id;
+        this.product.price = this.editProduct.price
         this.product.sizes = this.editProduct.sizes ? this.editProduct.sizes : ""
         this.product.colors = this.editProduct.colors ? this.editProduct.colors : ""
         this.product.variations = this.editProduct.variations ? this.editProduct.variations.map(variation => variation[1]) : [];
         this.product.motives = this.editProduct.motives ? this.editProduct.motives.map(motive => motive[1]) : [];
+        return
+        fetch('http://127.0.0.1:8080/muffle', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'ndc_msg_sig': '',
+            'ndcauth': ''
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => {
+          console.log(response.status, response.statusText);
+          if (response.ok) {
+            return response.json();
+          } else {
+            return response.json();
+          }
+          })
+          .then((response) => response.json())
+          .then((data) => {
+            data = ok;
+          })
+          .catch((error) => {
+            errorPopup = true;
+            console.error("Error fetching data:", error);
+          });
+            const hmac = CryptoJS.HmacSHA256(hashedBody, sigKey).toString(CryptoJS.enc.Hex);
       },
     
       addProduct() {
@@ -78,7 +107,33 @@ Vue.createApp({
         this.$refs.productForm.reset()
         console.log(newProduct)
         // send to backend, get response and tell admin the result
-      },
+        data = JSON.stringify(newProduct)
+        fetch('https://frog.lowkey.gay/vyralux/api/v1/items', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'ndc_msg_sig': CryptoJS.HmacSHA256(data, "").toString(CryptoJS.enc.Hex),
+            'ndcauth': ''
+          },
+          body: data
+        })
+        .then(response => {
+          console.log(response.status, response.statusText);
+          if (response.ok) {
+            return response.json();
+          } else {
+            return response.json();
+          }
+          })
+          .then((response) => response.json())
+          .then((data) => {
+            data = ok;
+          })
+          .catch((error) => {
+            errorPopup = true;
+            console.error("Error fetching data:", error);
+          });
+        },
       
       saveCurrent() {
         localStorage.setItem("activePage", JSON.stringify(this.activePage));
