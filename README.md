@@ -13,5 +13,9 @@ Der Webshop für den Schulmerch
   - [X] Anzahl von Artikeln
   - [X] Conditional Anzeigen alles
   - [ ] Funktionierende Oberfläche zum Hinzufügen/Bearbeiten (Admin Interface)
+    - [x] add
+    - [ ] edit
+    - [x] delete
+    - [ ] authentication/login 
   - [X] Kommunikation mit Backend
   - [ ] Schönes Design
