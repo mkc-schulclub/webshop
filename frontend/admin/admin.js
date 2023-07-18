@@ -94,7 +94,6 @@ Vue.createApp({
             variations: this.product.variations.length ? this.product.variations.split(/\s*,\s*|\s+/).map((variation, index) => [index + 1, variation]) : null
           }
           this.$refs.productForm.reset()
-          console.log(newProduct)
           data = JSON.stringify(newProduct)
           fetch('https://frog.lowkey.gay/vyralux/api/v1/items', {
             method: 'POST',
@@ -106,16 +105,7 @@ Vue.createApp({
             body: data
           })
           .then(response => {
-            console.log(response.status, response.statusText);
-            if (response.ok) {
-              return response.json();
-            } else {
-              return response.json();
-            }
-          })
-          .then((response) => response.json())
-          .then((data) => {
-            data = ok;
+            console.log(response.status, response.statusText, response);
           })
           .catch((error) => {
             errorPopup = true;
@@ -125,6 +115,11 @@ Vue.createApp({
         if (this.mode === 'edit') {
           // use the PATCH endpoint
         }
+        fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
+        .then((response) => response.json())
+        .then((data) => {
+          this.products = data;
+        })
         this.mode === 'view'
       },
       deleteProduct(product) {
