@@ -1,6 +1,7 @@
 Vue.createApp({
     data() {
       return {
+        loading: true,
         activePage: 0,
         mode: "view",
         darkmode: false,
@@ -44,6 +45,16 @@ Vue.createApp({
       };
     },
     methods: {
+      adding() {
+        this.product = {
+          name: '',
+          prod_id: '',
+          sizes: [],
+          colors: [],
+          motives: [],
+          variations: []
+        }
+      },
       edit(product) {
         this.mode = "edit"
         this.editProduct = product,
@@ -184,6 +195,7 @@ Vue.createApp({
         .then((response) => response.json())
         .then((data) => {
           this.products = data;
+          this.loading = false
         })
         .catch((error) => {
           errorPopup = true;

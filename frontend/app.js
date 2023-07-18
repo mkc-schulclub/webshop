@@ -1,6 +1,7 @@
 Vue.createApp({
   data() {
     return {
+      loading: true,
       activePage: 0,
       darkmode: false,
       popup: false,
@@ -183,9 +184,11 @@ Vue.createApp({
       .then((response) => response.json())
       .then((data) => {
         this.products = data;
+        this.loading = false
       })
       .catch((error) => {
         popup = true;
+        error = "Ein Fehler ist aufgetreten!"
         console.error("Error fetching data:", error);
       });
     this.loadCurrent();

@@ -12,6 +12,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
+  <div class="loading-backdrop" v-if="loading">
+    <div class="loading-content">
+      <span class="loading-text">Laden</span>
+      <span class="loading-dots">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </span>
+    </div>
+  </div>
   <nav class="navbar navbar-expand-lg">
     <a class="navbar-brand" href="" @click.prevent="activePage = 0">MKC Merch-Store</a>
     <div class="container-fluid">
@@ -33,7 +43,7 @@
     <div id="content" class="container">
       <div class="d-flex align-items-center">
         <h1 style="margin-right: 20px;">{{ pages[activePage].pageTitle }}</h1> 
-        <button @click="mode = 'add'" title="Ein Produkt hinzufügen" id="addProductBtn" v-if="activePage=== 1" class="btn btn-primary">＋</button>
+        <button @click="mode = 'add'; adding()" title="Ein Produkt hinzufügen" id="addProductBtn" v-if="activePage=== 1" class="btn btn-primary">＋</button>
       </div>
         <p>{{ pages[activePage].content }}</p>
         <div class="products" v-if="activePage === 1 && mode === 'view'">
