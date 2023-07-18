@@ -119,7 +119,10 @@ Vue.createApp({
       const url = "https://frog.lowkey.gay/vyralux/api/v1/order";
       const options = {
         method: "POST",
-        headers: new Headers({ "content-type": "application/json" }),
+        headers: new Headers({ 
+          "content-type": "application/json",
+          'ndc_msg_sig': CryptoJS.HmacSHA256(data, "").toString(CryptoJS.enc.Hex),
+        }),
         body: localStorage.getItem("cart"),
       };
       fetch(url, options)
@@ -164,6 +167,17 @@ Vue.createApp({
       }
       return true;
     },
+    getCookieValue(cookieName) {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(cookieName + '=')) {
+          const value = cookie.substring(cookieName.length + 1);
+          return decodeURIComponent(value);
+        }
+      }
+      return null;
+    }
   },
   watch: {
     activePage() {

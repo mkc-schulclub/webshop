@@ -70,28 +70,20 @@ Vue.createApp({
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'ndc_msg_sig': '',
-            'ndcauth': ''
+            'ndc_msg_sig': CryptoJS.HmacSHA256(data, "").toString(CryptoJS.enc.Hex),
+            'ndcauth': getCookieValue('sessionToken')
           },
           body: JSON.stringify(data)
         })
         .then(response => {
           console.log(response.status, response.statusText);
-          if (response.ok) {
-            return response.json();
-          } else {
-            return response.json();
-          }
-          })
-          .then((response) => response.json())
-          .then((data) => {
-            data = ok;
+          if (response.ok) {}
+          return response.json();
           })
           .catch((error) => {
             errorPopup = true;
             console.error("Error fetching data:", error);
           });
-            const hmac = CryptoJS.HmacSHA256(hashedBody, sigKey).toString(CryptoJS.enc.Hex);
       },
     
       modProduct() {
@@ -111,7 +103,7 @@ Vue.createApp({
             headers: {
               'Content-Type': 'application/json',
               'ndc_msg_sig': CryptoJS.HmacSHA256(data, "").toString(CryptoJS.enc.Hex),
-              'ndcauth': ''
+              'ndcauth': getCookieValue('sessionToken')
             },
             body: data
           })
@@ -141,7 +133,7 @@ Vue.createApp({
           headers: {
             'Content-Type': 'application/json',
             'ndc_msg_sig': CryptoJS.HmacSHA256(data, "").toString(CryptoJS.enc.Hex),
-            'ndcauth': ''
+            'ndcauth': getCookieValue('sessionToken')
           },
           body: data
         })
