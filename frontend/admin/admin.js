@@ -2,6 +2,7 @@ Vue.createApp({
     data() {
       return {
         activePage: 0,
+        mode: "view",
         darkmode: false,
         errorPopup: false,
         pages: [
@@ -43,24 +44,9 @@ Vue.createApp({
       };
     },
     methods: {
-      test() {
-        this.editProduct = {
-          "name": "Tassen",
-          "prod_id": "TS",
-          "price": "5",
-          "variations": [
-            ["1", "MKC Logo"],
-            ["2", "MK Logo"],
-            ["3", "Klinger Kopf"]
-          ],
-          "colors": [
-            "rot",
-            "grün",
-            "blau"
-          ],
-          "sizes": [],
-          "motives": []
-        },
+      edit(product) {
+        this.mode = "edit"
+        this.editProduct = product,
         this.product.name = this.editProduct.name;
         this.product.prod_id = this.editProduct.prod_id;
         this.product.price = this.editProduct.price
@@ -97,35 +83,35 @@ Vue.createApp({
             const hmac = CryptoJS.HmacSHA256(hashedBody, sigKey).toString(CryptoJS.enc.Hex);
       },
     
-      addProduct() {
-        newProduct = {
-          name: this.product.name,
-          prod_id: this.product.prod_id,
-          sizes: this.product.sizes.length ? this.product.sizes.replace(/,(\S)/g, ', $1') : null,
-          colors: this.product.colors.length ? this.product.colors.replace(/,(\S)/g, ', $1') : null,
-          motives: this.product.motives.length ? this.product.motives.split(/\s*,\s*|\s+/).map((motive, index) => [index + 1, motive]) : null,
-          variations: this.product.variations.length ? this.product.variations.split(/\s*,\s*|\s+/).map((variation, index) => [index + 1, variation]) : null
-        }
-        this.$refs.productForm.reset()
-        console.log(newProduct)
-        // send to backend, get response and tell admin the result
-        data = JSON.stringify(newProduct)
-        fetch('https://frog.lowkey.gay/vyralux/api/v1/items', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'ndc_msg_sig': CryptoJS.HmacSHA256(data, "$2b$12$fwOnYqB3jsnF1IzFYtUbBekRJ/ZH/NH/UIYBxqM0zOwvP50J3c0C6").toString(CryptoJS.enc.Hex),
-            'ndcauth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODk2NzkwMTksImlhdCI6MTY4OTU5MjYxOSwibmJmIjoxNjg5NTkyNjE5LCJ1aWQiOiI2NGIxNmUxMWMwNzI5OTdhYmM2NzU4N2MifQ.jJtOOgEJGqY9e9hIKi6WlGJrpCeiYra5L6VGjs8exz4'
-          },
-          body: data
-        })
-        .then(response => {
-          console.log(response.status, response.statusText);
-          if (response.ok) {
-            return response.json();
-          } else {
-            return response.json();
+      modProduct() {
+        if (this.mode === 'add') {
+          newProduct = {
+            name: this.product.name,
+            prod_id: this.product.prod_id,
+            sizes: this.product.sizes.length ? this.product.sizes.replace(/,(\S)/g, ', $1') : null,
+            colors: this.product.colors.length ? this.product.colors.replace(/,(\S)/g, ', $1') : null,
+            motives: this.product.motives.length ? this.product.motives.split(/\s*,\s*|\s+/).map((motive, index) => [index + 1, motive]) : null,
+            variations: this.product.variations.length ? this.product.variations.split(/\s*,\s*|\s+/).map((variation, index) => [index + 1, variation]) : null
           }
+          this.$refs.productForm.reset()
+          console.log(newProduct)
+          data = JSON.stringify(newProduct)
+          fetch('https://frog.lowkey.gay/vyralux/api/v1/items', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'ndc_msg_sig': CryptoJS.HmacSHA256(data, "").toString(CryptoJS.enc.Hex),
+              'ndcauth': ''
+            },
+            body: data
+          })
+          .then(response => {
+            console.log(response.status, response.statusText);
+            if (response.ok) {
+              return response.json();
+            } else {
+              return response.json();
+            }
           })
           .then((response) => response.json())
           .then((data) => {
@@ -135,6 +121,11 @@ Vue.createApp({
             errorPopup = true;
             console.error("Error fetching data:", error);
           });
+        }
+        if (this.mode === 'edit') {
+          // use the PATCH endpoint
+        }
+        this.mode === 'view'
       },
       deleteProduct(product) {
         this.editProduct = product
@@ -143,32 +134,24 @@ Vue.createApp({
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
-            'ndc_msg_sig': CryptoJS.HmacSHA256(data, "$2b$12$fwOnYqB3jsnF1IzFYtUbBekRJ/ZH/NH/UIYBxqM0zOwvP50J3c0C6").toString(CryptoJS.enc.Hex),
-            'ndcauth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODk2NzkwMTksImlhdCI6MTY4OTU5MjYxOSwibmJmIjoxNjg5NTkyNjE5LCJ1aWQiOiI2NGIxNmUxMWMwNzI5OTdhYmM2NzU4N2MifQ.jJtOOgEJGqY9e9hIKi6WlGJrpCeiYra5L6VGjs8exz4'
+            'ndc_msg_sig': CryptoJS.HmacSHA256(data, "").toString(CryptoJS.enc.Hex),
+            'ndcauth': ''
           },
           body: data
         })
         .then(response => {
           console.log(response.status, response.statusText);
-          if (response.ok) {
-            return response.json();
-          } else {
-            return response.json();
-          }
-          })
-          .then((response) => response.json())
-          .then((data) => {
-            data = ok;
+            return response
           })
           .catch((error) => {
             errorPopup = true;
             console.error("Error fetching data:", error);
           });
-          fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
-          .then((response) => response.json())
-          .then((data) => {
-            this.products = data;
-          })
+        fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
+        .then((response) => response.json())
+        .then((data) => {
+          this.products = data;
+        })
       },
       
       saveCurrent() {
