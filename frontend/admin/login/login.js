@@ -23,21 +23,24 @@ Vue.createApp({
         .then(response => {
           console.log(response.status, response.statusText);
           if (response.ok) {
-            return response.json(); // Parse response as JSON
+            return response.json();
           } else {
-            throw new Error('Login failed'); // Throw error for failed login
+            this.errorMessage = 'Login fehlgeschlagen!'
+            throw new Error('Login failed');
           }
         })
         .then(data => {
           const { sid } = data;
-          const expirationDate = new Date();
-          expirationDate.setTime(expirationDate.getTime() + 24 * 60 * 60 * 1000);
-          if (sid) document.cookie = `sessionToken=${sid}; expires=${expirationDate.toUTCString()}; path=/; secure`;
-          console.log(sid);
-          window.location.href = "../";
+          if (sid) {
+            const expirationDate = new Date();
+            expirationDate.setTime(expirationDate.getTime() + 24 * 60 * 60 * 1000);
+            document.cookie = `sessionToken=${sid}; expires=${expirationDate.toUTCString()}; path=/; secure`;
+            window.location.href = "../";
+          }
+          else console.error('No session token generated')
         })
         .catch(error => {
-          this.errorMessage = 'Login failed!';
+          this.errorMessage = 'Login fehlgeschlagen!';
           console.error("Error fetching data:", error);
         });
       }, 
