@@ -20,7 +20,7 @@ Vue.createApp({
         {
           link: { text: "Schulclub", url: "contact.html" },
           pageTitle: "Max-Klinger-Schulclub",
-          content: "Hier kann anderes Zeug hin",
+          content: "",
         },
       ],
       products: [],

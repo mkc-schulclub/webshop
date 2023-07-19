@@ -167,6 +167,18 @@ Vue.createApp({
     watch: {
       activePage() {
         this.saveCurrent();
+        if (this.activePage === 3) {
+          console.log(3)
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i];
+              const eqPos = cookie.indexOf("=");
+              const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+              document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+          }
+          this.activePage === 0
+          window.location = '../'
+        }
       },
       product: {
         deep: true,
@@ -183,6 +195,14 @@ Vue.createApp({
     computed: {
     },
     mounted() {
+      const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.startsWith('sessionToken' + '=')) {
+            const value = cookie.substring('sessionToken'.length + 1);
+            if (!value) window.location = './login';
+          }
+        }
       fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
         .then((response) => response.json())
         .then((data) => {

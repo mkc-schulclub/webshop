@@ -16,12 +16,12 @@
         <div class="loading-content">
             <span class="loading-text">Laden</span>
             <span class="loading-dots">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
             </span>
         </div>
-        </div>
+    </div>
     <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="" @click.prevent="activePage = 0">MKC Merch-Store</a>
         <div class="container-fluid">
@@ -55,44 +55,42 @@
                     <div class="text">
                         <h3>{{ product.name }}</h3>
                         <div class="selections">
-                        <span v-if="product.sizes && product.sizes.length > 0">
-                            Größen:
-                            <select v-model="product.selectedSize">
-                            <option v-for="size in product.sizes" :key="size" :value="size">{{ size }}</option>
-                            </select>
-                        </span>
-                        <span v-if="product.colors && product.colors.length > 0">
-                            Farben:
-                            <select v-model="product.selectedColor">
-                                <option v-for="color in product.colors" :key="color" :value="color">{{ color }}</option>
-                            </select>
-                        </span>
-                        <br>
-                        <span v-if="product.motives && product.motives.length > 0"> 
-                            Motive:
-                            <select v-model="product.selectedMotive">
-                                <option v-for="motive in product.motives" :key="motive[0]" :value="motive">{{ motive[1] }}</option>
-                            </select>
-                          </span>
-                          <span v-if="product.variations && product.variations.length > 0"> 
-                            Variationen:
-                            <select v-model="product.selectedVariation">
-                              <option v-for="variation in product.variations" :key="variation[0]" :value="variation">{{ variation[1] }}</option>
-                            </select>
-                          </span>
-                          <br><br>
-                          <div style="width: 10">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo sagittis fringilla. Integer at est risus. 
-                                Curabitur risus nunc, finibus sed gravida ac, tempus eget justo. Nam aliquam pharetra sapien. 
-                                Mauris ut eros nec tellus gravida scelerisque non vel sapien. Cras eget sapien et purus dapibus sagittis. 
-                                Suspendisse laoreet purus sed vehicula congue.
-                          </div>
-                        <div>
+                            <span v-if="product.sizes && product.sizes.length > 0">
+                                Größen:
+                                <select v-model="product.selectedSize">
+                                <option v-for="size in product.sizes" :key="size" :value="size">{{ size }}</option>
+                                </select>
+                            </span>
+                            <span v-if="product.colors && product.colors.length > 0">
+                                Farben:
+                                <select v-model="product.selectedColor">
+                                    <option v-for="color in product.colors" :key="color" :value="color">{{ color }}</option>
+                                </select>
+                            </span>
+                            <br>
+                            <span v-if="product.motives && product.motives.length > 0"> 
+                                Motive:
+                                <select v-model="product.selectedMotive">
+                                    <option v-for="motive in product.motives" :key="motive[0]" :value="motive">{{ motive[1] }}</option>
+                                </select>
+                            </span>
+                            <span v-if="product.variations && product.variations.length > 0"> 
+                                Variationen:
+                                <select v-model="product.selectedVariation">
+                                <option v-for="variation in product.variations" :key="variation[0]" :value="variation">{{ variation[1] }}</option>
+                                </select>
+                            </span>
+                            <br><br>
+                            <div style="width: 10">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo sagittis fringilla. Integer at est risus. 
+                                    Curabitur risus nunc, finibus sed gravida ac, tempus eget justo. Nam aliquam pharetra sapien. 
+                                    Mauris ut eros nec tellus gravida scelerisque non vel sapien. Cras eget sapien et purus dapibus sagittis. 
+                                    Suspendisse laoreet purus sed vehicula congue.
+                            </div>
                         </div>
-                    </div>
-                    <button @click.prevent="addToCart(product)" :disabled="!propertiesSelected(product)" :class="{ 'disabled-button': !propertiesSelected(product)}">
-                        <img src="./images/cart.png" alt="Zum Warenkorb hinzufügen" width="20"/>
-                    </button>                                                                                        
+                        <button @click.prevent="addToCart(product)" :disabled="!propertiesSelected(product)" :class="{ 'disabled-button': !propertiesSelected(product)}">
+                            <img src="./images/cart.png" alt="Zum Warenkorb hinzufügen" width="20"/>
+                        </button>                                                                                        
                     </div>
                     <div class="image" style="width: 600vh; height: auto;">
                         <img src="./images/IMG_2386.jpg" height="300">
@@ -100,41 +98,43 @@
                 </div>
             </ul>
         </div>
-        </div>
-        <div class="cart" v-if="activePage === 1">
-            <ul v-for="(product, index) in cart" :key="index">
-                <div>
-                    <h3>{{ product.name }}</h3>
-                    <div class="image">
-                        <img src="./images/cart.png">
-                    </div>
-                    <ul v-if="product.color"><b>Farbe:</b> {{ product.color }}</ul>
-                    <ul v-if="product.size"><b>Größe:</b> {{ product.size }}</ul>
-                    <ul v-if="product.motive"><b>Motiv:</b> {{ Object.values(product.motive)[0] }}</ul>
-                    <ul v-if="product.variation"><b>Variation:</b> {{ Object.values(product.variation)[0] }}</ul>
-                    <ul><b>Preis:</b> {{ `${product.price}€` }}</ul>
-                    <ul><b>Anzahl:</b>{{ product.amount }}</ul>
-                    <div>
-                        <button @click.prevent="removeFromCart(product)">
-                            <img src="./images/bin.png" alt="Aus dem Warenkorb entfernen" width="15"/>
-                        </button>
-                    </div>
-                    <!-- error popup might go here -->
+    </div>
+    <div class="cart" v-if="activePage === 1">
+        <ul v-for="(product, index) in cart" :key="index">
+            <div>
+                <h3>{{ product.name }}</h3>
+                <div class="image">
+                    <img src="./images/cart.png">
                 </div>
-            </ul>
-            <button v-if="cart.length" class="submitCartBtn" @click.prevent="submitCart()">Bestellformular verarbeiten</button>
-            <br>
-            <a style="margin-left: 30%;" v-if="pdf" :href="pdf">Hier clicken, um das Bestellformular herunterzuladen!</a>
+                <ul v-if="product.color"><b>Farbe:</b> {{ product.color }}</ul>
+                <ul v-if="product.size"><b>Größe:</b> {{ product.size }}</ul>
+                <ul v-if="product.motive"><b>Motiv:</b> {{ Object.values(product.motive)[0] }}</ul>
+                <ul v-if="product.variation"><b>Variation:</b> {{ Object.values(product.variation)[0] }}</ul>
+                <ul><b>Preis:</b> {{ `${product.price}€` }}</ul>
+                <ul><b>Anzahl:</b>{{ product.amount }}</ul>
+                <div>
+                    <button @click.prevent="removeFromCart(product)">
+                        <img src="./images/bin.png" alt="Aus dem Warenkorb entfernen" width="15"/>
+                    </button>
+                </div>
+                <!-- error popup might go here -->
+            </div>
+        </ul>
+        <button v-if="cart.length" class="submitCartBtn" @click.prevent="submitCart()">Bestellformular verarbeiten</button>
+        <br>
+        <a style="margin-left: 30%;" v-if="pdf" :href="pdf">Hier clicken, um das Bestellformular herunterzuladen!</a>
+    </div>
+    <div>
+        <div v-if="!!popup" class="dialog-overlay">
+            <div class="dialog-content">
+                <h2>{{ popTitle }}</h2>
+                <p>{{ popMessage }}</p>
+                <button @click="closePop">Schließen</button>
+            </div>
         </div>
     </div>
-        <div>
-          <div v-if="!!popup" class="dialog-overlay">
-            <div class="dialog-content">
-              <h2>{{ popTitle }}</h2>
-              <p>{{ popMessage }}</p>
-              <button @click="closePop">Schließen</button>
-            </div>
-          </div>
-        </div>
+    <div id="schulclub" v-if="activePage === 2">
+        <a href="./admin/">Zum Admin-Interface (für Schulclub-Mitglieder) --&gt</a>
+    </div>
 </body>
 </html>
