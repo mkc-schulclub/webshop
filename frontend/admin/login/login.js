@@ -35,9 +35,10 @@ Vue.createApp({
             const expirationDate = new Date();
             expirationDate.setTime(expirationDate.getTime() + 24 * 60 * 60 * 1000);
             document.cookie = `sessionToken=${sid}; expires=${expirationDate.toUTCString()}; path=/; secure`;
+            this.activePage = 0
             window.location.href = "../";
           }
-          else console.error('No session token generated')
+          else console.error('No session token generated'); this.errorMessage = 'Login fehlgeschlagen!'
         })
         .catch(error => {
           this.errorMessage = 'Login fehlgeschlagen!';
