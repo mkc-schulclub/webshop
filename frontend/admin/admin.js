@@ -151,7 +151,6 @@ Vue.createApp({
           this.products = data;
         })
       },
-      
       saveCurrent() {
         localStorage.setItem("activePage", JSON.stringify(this.activePage));
       },
@@ -163,20 +162,36 @@ Vue.createApp({
           this.activePage = 0;
         }
       },
+      logout() {
+          this.activePage = 0
+          this.deleteCookies()
+          //window.location = '../'
+      },
+      getCookie(name) {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.startsWith(name + '=')) {
+            return cookie.substring(name.length + 1);
+          }
+        }
+        return null;
+      },
+      deleteCookies() {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          const cookieName = cookie.split('=')[0];
+          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        }
+      }
+      
     },
     watch: {
       activePage() {
         this.saveCurrent();
         if (this.activePage === 3) {
-          const cookies = document.cookie.split(";");
-          for (let i = 0; i < cookies.length; i++) {
-              const cookie = cookies[i];
-              const eqPos = cookie.indexOf("=");
-              const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-              document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-          }
-          this.activePage = 0
-          window.location = '../'
+          this.logout()
         }
       },
       product: {
@@ -194,8 +209,7 @@ Vue.createApp({
     computed: {
     },
     mounted() {
-      const cookies = document.cookie.split(';');
-      if (!cookies.length) window.location = './login';
+      if (!this.getCookie('sessionToken')) window.location = './login';
       fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
         .then((response) => response.json())
         .then((data) => {
