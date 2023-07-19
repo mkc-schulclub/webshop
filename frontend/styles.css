@@ -53,6 +53,9 @@ html, body {
   margin-left: 40%;
   margin-bottom: 30px;
 }
+nav {
+  background-color: #78d6a3;
+}
 @media (max-width: 1000px) {
   #navcontent {
     align-items: center;
@@ -109,4 +112,39 @@ form input {
 }
 #schulclub {
   margin-left: 25px;
+}
+
+
+
+/* NEW */
+
+.btn-select {
+  background-color: #78d6a3 !important;
+  height: 40px !important;
+  
+}
+.btn-select.active {
+  background-color: #4ec797 !important;
+}
+.btn-group {
+  margin-right: 5px;
+  margin-bottom: 10px;
+  height: 30px !important;
+  display: flex !important;
+  align-items: baseline !important;
+  border-radius: 50px !important;
+  border-color: #000000 !important;
+}
+@media (max-width: 576px) {
+  .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+  }
+}
+* {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
 }
