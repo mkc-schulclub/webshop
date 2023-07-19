@@ -165,7 +165,7 @@ Vue.createApp({
       logout() {
           this.activePage = 0
           this.deleteCookies()
-          //window.location = '../'
+          window.location = '../'
       },
       getCookie(name) {
         const cookies = document.cookie.split(';');
