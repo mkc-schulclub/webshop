@@ -64,7 +64,7 @@ async def order(items: List[Item]):
                 "Non Existant Product",
                 "Tried to specify a product that doesnt exist in the database"
             )
-        maybe_variation = (item.motive.keys() or item.variation.keys())
+        maybe_variation = getattr(item.motive or item.variation, "keys", lambda: False)()
         if maybe_variation:
             maybe_variation = list(maybe_variation)[0]
         else:
