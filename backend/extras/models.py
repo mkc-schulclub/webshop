@@ -4,9 +4,9 @@ from typing import Optional, List
 from pydantic import BaseModel
 
 class Product(BaseModel):
-    name:       str
+    name:       str                       = ""
     prod_id:    str
-    price:      int
+    price:      int                       = 0
     variations: Optional[List[List[str]]] = []
     colors:     Optional[List[str]]       = []
     sizes:      Optional[List[str]]       = []
