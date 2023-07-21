@@ -20,7 +20,7 @@ router = APIRouter(
 )
 
 
-@router.post("")
+@router.get("")
 async def fetchItems(skip: int = 0, limit: int = 20):
     cursor = db.items.find({}).skip(skip).limit(limit)
     items = await cursor.to_list(limit)
