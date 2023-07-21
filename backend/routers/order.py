@@ -44,7 +44,7 @@ async def upload(session: ClientSession, up_file: str) -> dict:
 
 
 @router.post(
-    "/",
+    "",
     dependencies=[Depends(validateSig)],
 )
 async def order(items: List[Item]):
@@ -88,7 +88,7 @@ async def order(items: List[Item]):
 
 
 @router.get(
-    "/",
+    "",
     dependencies=[Depends(validateSession)]
 )
 async def getOrders(skip: int = 0, limit: int = 20):

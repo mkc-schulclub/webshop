@@ -20,7 +20,7 @@ router = APIRouter(
 )
 
 
-@router.get("/")
+@router.post("")
 async def fetchItems(skip: int = 0, limit: int = 20):
     cursor = db.items.find({}).skip(skip).limit(limit)
     items = await cursor.to_list(limit)
@@ -28,7 +28,7 @@ async def fetchItems(skip: int = 0, limit: int = 20):
 
 
 @router.post(
-    "/",
+    "",
     dependencies=[Depends(validateSig), Depends(validateSession)]
 )
 async def addItem(item: Product):
@@ -43,7 +43,7 @@ async def addItem(item: Product):
 
 
 @router.patch(
-    "/",
+    "",
     dependencies=[Depends(validateSig), Depends(validateSession)]
 )
 async def updateItem(item: Product):
@@ -60,7 +60,7 @@ async def updateItem(item: Product):
 
 
 @router.delete(
-    "/",
+    "",
     dependencies=[Depends(validateSig), Depends(validateSession)]
 )
 async def removeItem(item: Product):
