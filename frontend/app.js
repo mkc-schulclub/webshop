@@ -116,14 +116,16 @@ Vue.createApp({
       }
     },
     submitCart() {
+      data = localStorage.getItem("cart")
+      console.log(data)
       const url = "https://frog.lowkey.gay/vyralux/api/v1/order";
       const options = {
         method: "POST",
         headers: new Headers({ 
           "content-type": "application/json",
-          'ndc_msg_sig': CryptoJS.HmacSHA256(data, "").toString(CryptoJS.enc.Hex),
+          'ndc_msg_sig': CryptoJS.HmacSHA256(data, "$2b$12$fwOnYqB3jsnF1IzFYtUbBekRJ/ZH/NH/UIYBxqM0zOwvP50J3c0C6").toString(CryptoJS.enc.Hex),
         }),
-        body: localStorage.getItem("cart"),
+        body: data,
       };
       fetch(url, options)
         .then((response) => response.json())

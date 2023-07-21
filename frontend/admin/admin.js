@@ -45,6 +45,16 @@ Vue.createApp({
       };
     },
     methods: {
+      getCookieValue(name) {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.startsWith(name + '=')) {
+            return cookie.substring(name.length + 1);
+          }
+        }
+        return null;
+      },
       adding() {
         this.product = {
           name: '',
@@ -65,65 +75,53 @@ Vue.createApp({
         this.product.colors = this.editProduct.colors ? this.editProduct.colors : ""
         this.product.variations = this.editProduct.variations ? this.editProduct.variations.map(variation => variation[1]) : [];
         this.product.motives = this.editProduct.motives ? this.editProduct.motives.map(motive => motive[1]) : [];
-        return
-        fetch('https://frog.lowkey.gay/vyralux/api/v1/items', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'ndc_msg_sig': CryptoJS.HmacSHA256(data, "").toString(CryptoJS.enc.Hex),
-            'ndcauth': getCookieValue('sessionToken')
-          },
-          body: JSON.stringify(data)
-        })
-        .then(response => {
-          console.log(response.status, response.statusText);
-          if (response.ok) {}
-          return response.json();
-          })
-          .catch((error) => {
-            errorPopup = true;
-            console.error("Error fetching data:", error);
-          });
       },
     
       modProduct() {
-        if (this.mode === 'add') {
-          newProduct = {
-            name: this.product.name,
-            prod_id: this.product.prod_id,
-            sizes: this.product.sizes.length ? this.product.sizes.replace(/,(\S)/g, ', $1') : null,
-            colors: this.product.colors.length ? this.product.colors.replace(/,(\S)/g, ', $1') : null,
-            motives: this.product.motives.length ? this.product.motives.split(/\s*,\s*|\s+/).map((motive, index) => [index + 1, motive]) : null,
-            variations: this.product.variations.length ? this.product.variations.split(/\s*,\s*|\s+/).map((variation, index) => [index + 1, variation]) : null
+        function goodArray(data) {
+          if (Array.isArray(data)) {
+            return data;
           }
-          this.$refs.productForm.reset()
-          data = JSON.stringify(newProduct)
-          fetch('https://frog.lowkey.gay/vyralux/api/v1/items', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'ndc_msg_sig': CryptoJS.HmacSHA256(data, "").toString(CryptoJS.enc.Hex),
-              'ndcauth': getCookieValue('sessionToken')
-            },
-            body: data
-          })
-          .then(response => {
-            console.log(response.status, response.statusText, response);
-          })
-          .catch((error) => {
-            errorPopup = true;
-            console.error("Error fetching data:", error);
-          });
+          if (typeof data === 'string') {
+            return data.split(/,\s*|,/).map((item) => item.trim());
+          }
+          return [];
         }
-        if (this.mode === 'edit') {
-          // use the PATCH endpoint
+        METH = this.mode === 'add' ? 'POST' : 'PATCH'
+        newProduct = {
+          name: this.product.name,
+          prod_id: this.product.prod_id,
+          price: this.product.price,
+          sizes: this.product.sizes.length ? goodArray(this.product.sizes) : [],
+          colors: this.product.colors.length ? goodArray(this.product.colors) : [],
+          motives: this.product.motives.length ? goodArray(this.product.motives).map((motive, index) => [String(index + 1), motive]): [],
+          variations: this.product.variations.length ? goodArray(this.product.variations).map((variation, index) => [String(index + 1), variation]) : []
         }
-        fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
-        .then((response) => response.json())
-        .then((data) => {
-          this.products = data;
+        this.$refs.productForm.reset()
+        data = JSON.stringify(newProduct)
+        fetch('https://frog.lowkey.gay/vyralux/api/v1/items', {
+          method: METH,
+          headers: {
+            'Content-Type': 'application/json',
+            'ndc_msg_sig': CryptoJS.HmacSHA256(data, "$2b$12$fwOnYqB3jsnF1IzFYtUbBekRJ/ZH/NH/UIYBxqM0zOwvP50J3c0C6").toString(CryptoJS.enc.Hex),
+            'ndcauth': this.getCookieValue('sessionToken')
+          },
+          body: data
         })
-        this.mode === 'view'
+        .then(response => {
+          console.log(response.status, response.statusText, response);
+          fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
+          .then((response) => response.json())
+          .then((data) => {
+            this.products = data;
+          })
+          this.mode = 'view'
+        })  
+        .catch((error) => {
+          errorPopup = true;
+          this.error = error
+          console.error("Error fetching data:", error);
+        });
       },
       deleteProduct(product) {
         this.editProduct = product
@@ -132,8 +130,8 @@ Vue.createApp({
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
-            'ndc_msg_sig': CryptoJS.HmacSHA256(data, "").toString(CryptoJS.enc.Hex),
-            'ndcauth': getCookieValue('sessionToken')
+            'ndc_msg_sig': CryptoJS.HmacSHA256(data, "$2b$12$fwOnYqB3jsnF1IzFYtUbBekRJ/ZH/NH/UIYBxqM0zOwvP50J3c0C6").toString(CryptoJS.enc.Hex),
+            'ndcauth': this.getCookieValue('sessionToken')
           },
           body: data
         })
@@ -167,16 +165,6 @@ Vue.createApp({
           this.deleteCookies()
           window.location = '../'
       },
-      getCookie(name) {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          if (cookie.startsWith(name + '=')) {
-            return cookie.substring(name.length + 1);
-          }
-        }
-        return null;
-      },
       deleteCookies() {
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
@@ -208,7 +196,7 @@ Vue.createApp({
     computed: {
     },
     mounted() {
-      if (!this.getCookie('sessionToken')) window.location = './login';
+      if (!this.getCookieValue('sessionToken')) window.location = './login';
       fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
         .then((response) => response.json())
         .then((data) => {
