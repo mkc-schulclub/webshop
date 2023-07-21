@@ -100,4 +100,4 @@ async def removeUser(request: Request):
             "User Not Found",
             "Specified User doesn't exist in database"
         )
-    await db.users.remove_one(nameOrId)
+    await db.users.delete_one(nameOrId)

@@ -72,5 +72,5 @@ async def removeItem(item: Product):
             "prod_id not in database"
         )
     
-    await db.items.remove_one({"prod_id: item.prod_id"})
+    await db.items.delete_one({"prod_id: item.prod_id"})
     return {"api:statuscode": statusCodes.SUCCESS}
