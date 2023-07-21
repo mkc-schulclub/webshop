@@ -58,7 +58,7 @@ async def login(request: Request):
     user["sid"] = generateSession(str(user["_id"]))
     
     await db.users.update_one(
-        {"_id": str(user["_id"])}, {"$set": {"sid": user["sid"]}}
+        {"name": out["name"]}, {"$set": {"sid": user["sid"]}}
     )
     
     del user["_id"]
