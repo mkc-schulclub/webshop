@@ -123,7 +123,7 @@ Vue.createApp({
         method: "POST",
         headers: new Headers({ 
           "content-type": "application/json",
-          'ndc_msg_sig': CryptoJS.HmacSHA256(data, "$2b$12$fwOnYqB3jsnF1IzFYtUbBekRJ/ZH/NH/UIYBxqM0zOwvP50J3c0C6").toString(CryptoJS.enc.Hex),
+          'hjtrfs': CryptoJS.HmacSHA256(data, "$2b$12$fwOnYqB3jsnF1IzFYtUbBekRJ/ZH/NH/UIYBxqM0zOwvP50J3c0C6").toString(CryptoJS.enc.Hex),
         }),
         body: data,
       };

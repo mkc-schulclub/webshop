@@ -96,8 +96,8 @@
             <input type="text" id="name" v-model="product.name" required />
           </div>
           <div>
-            <label for="prod_id">Produkt-ID:</label>
-            <input type="text" id="prod_id" v-model="product.prod_id" required />
+            <label for="prod_id" >Produkt-ID:</label>
+            <input v-bind:disabled="mode === 'edit'" type="text" id="prod_id" v-model="product.prod_id" required />
           </div>
           <div>
             <label for="price">Preis</label>

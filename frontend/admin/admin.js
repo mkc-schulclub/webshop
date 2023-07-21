@@ -103,20 +103,22 @@ Vue.createApp({
           method: METH,
           headers: {
             'Content-Type': 'application/json',
-            'ndc_msg_sig': CryptoJS.HmacSHA256(data, "$2b$12$fwOnYqB3jsnF1IzFYtUbBekRJ/ZH/NH/UIYBxqM0zOwvP50J3c0C6").toString(CryptoJS.enc.Hex),
+            'hjtrfs': CryptoJS.HmacSHA256(data, this.getCookieValue("key")).toString(CryptoJS.enc.Hex),
             'ndcauth': this.getCookieValue('sessionToken')
           },
           body: data
         })
         .then(response => {
           console.log(response.status, response.statusText, response);
+        })  
+        .then(
           fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
           .then((response) => response.json())
           .then((data) => {
             this.products = data;
-          })
+          }),
           this.mode = 'view'
-        })  
+        )
         .catch((error) => {
           errorPopup = true;
           this.error = error
@@ -130,7 +132,7 @@ Vue.createApp({
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
-            'ndc_msg_sig': CryptoJS.HmacSHA256(data, "$2b$12$fwOnYqB3jsnF1IzFYtUbBekRJ/ZH/NH/UIYBxqM0zOwvP50J3c0C6").toString(CryptoJS.enc.Hex),
+            'hjtrfs': CryptoJS.HmacSHA256(data, this.getCookieValue("key")).toString(CryptoJS.enc.Hex),
             'ndcauth': this.getCookieValue('sessionToken')
           },
           body: data
