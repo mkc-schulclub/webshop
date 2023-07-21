@@ -14,7 +14,7 @@ router = APIRouter(
 
 
 @router.get(
-    "/",
+    "",
 )
 async def getKeyBase():
     # TODO: #8 Remove this from code

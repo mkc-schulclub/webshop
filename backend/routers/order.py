@@ -44,7 +44,7 @@ async def upload(session: ClientSession, up_file: str) -> dict:
 
 
 @router.post(
-    "/",
+    "",
     dependencies=[Depends(validateSig)],
 )
 async def order(items: List[Item]):
@@ -64,7 +64,7 @@ async def order(items: List[Item]):
                 "Non Existant Product",
                 "Tried to specify a product that doesnt exist in the database"
             )
-        maybe_variation = (item.motive.keys() or item.variation.keys())
+        maybe_variation = getattr(item.motive or item.variation, "keys", lambda: False)()
         if maybe_variation:
             maybe_variation = list(maybe_variation)[0]
         else:
@@ -88,7 +88,7 @@ async def order(items: List[Item]):
 
 
 @router.get(
-    "/",
+    "",
     dependencies=[Depends(validateSession)]
 )
 async def getOrders(skip: int = 0, limit: int = 20):

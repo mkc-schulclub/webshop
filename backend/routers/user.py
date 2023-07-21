@@ -16,7 +16,7 @@ router = APIRouter(
 
 
 @router.post(
-    "/user",
+    "",
     dependencies=[Depends(validateSig), Depends(validateSession), Depends(isAdmin)]
 )
 async def addUser(request: Request):
@@ -63,7 +63,7 @@ async def addUser(request: Request):
 
 
 @router.get(
-    "/",
+    "",
     dependencies=[Depends(validateSession)]
 )
 async def getUsers(skip: int = 0, limit: int = 20):
@@ -76,7 +76,7 @@ async def getUsers(skip: int = 0, limit: int = 20):
 
 
 @router.delete(
-    "/",
+    "",
     dependencies=[Depends(validateSession), Depends(isAdmin)]
 )
 async def removeUser(request: Request):
@@ -100,4 +100,4 @@ async def removeUser(request: Request):
             "User Not Found",
             "Specified User doesn't exist in database"
         )
-    await db.users.remove_one(nameOrId)
+    await db.users.delete_one(nameOrId)

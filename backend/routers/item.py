@@ -20,7 +20,7 @@ router = APIRouter(
 )
 
 
-@router.get("/")
+@router.get("")
 async def fetchItems(skip: int = 0, limit: int = 20):
     cursor = db.items.find({}).skip(skip).limit(limit)
     items = await cursor.to_list(limit)
@@ -28,7 +28,7 @@ async def fetchItems(skip: int = 0, limit: int = 20):
 
 
 @router.post(
-    "/",
+    "",
     dependencies=[Depends(validateSig), Depends(validateSession)]
 )
 async def addItem(item: Product):
@@ -43,7 +43,7 @@ async def addItem(item: Product):
 
 
 @router.patch(
-    "/",
+    "",
     dependencies=[Depends(validateSig), Depends(validateSession)]
 )
 async def updateItem(item: Product):
@@ -55,12 +55,12 @@ async def updateItem(item: Product):
             "prod_id not in database"
         )
     
-    await db.items.update_one({"prod_id: item.prod_id"}, {k: v for k, v in item.dict().items() if v})
+    await db.items.update_one({"prod_id": item.prod_id}, {"$set": {k: v for k, v in item.dict().items() if v}})
     return {k: v if v else product[k] for k, v in item.dict().items()} | {"api:statuscode": statusCodes.SUCCESS}
 
 
 @router.delete(
-    "/",
+    "",
     dependencies=[Depends(validateSig), Depends(validateSession)]
 )
 async def removeItem(item: Product):
@@ -72,5 +72,5 @@ async def removeItem(item: Product):
             "prod_id not in database"
         )
     
-    await db.items.remove_one({"prod_id: item.prod_id"})
+    await db.items.delete_one({"prod_id": item.prod_id})
     return {"api:statuscode": statusCodes.SUCCESS}
