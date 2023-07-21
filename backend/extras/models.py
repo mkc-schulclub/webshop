@@ -11,6 +11,7 @@ class Product(BaseModel):
     colors:     Optional[List[str]]       = []
     sizes:      Optional[List[str]]       = []
     motives:    Optional[List[List[str]]] = []
+    image:      Optional[bytes]           = b""
 
 
 class Item(BaseModel):

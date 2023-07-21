@@ -5,7 +5,8 @@ from .depends import (
     boolFromString,
     ShopException,
     isAdmin,
-    generateSession
+    generateSession,
+    LOGGER
 )
 
 from .models import (
@@ -16,7 +17,3 @@ from .models import (
 )
 
 from .codes import statusCodes
-
-from logging import getLogger
-
-LOGGER = getLogger("Clubshop")

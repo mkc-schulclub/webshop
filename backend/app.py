@@ -10,7 +10,7 @@ from routers import __all__
 app = FastAPI(
     title="Shop API",
     description="Schulclub Webshop API",
-    version="0.2.5"
+    version="0.3.0"
 )
 
 

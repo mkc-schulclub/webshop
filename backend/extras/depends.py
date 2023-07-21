@@ -1,8 +1,8 @@
 import os
-from base64 import b64decode
 from hashlib import sha256
 from hmac import HMAC
 from time import time
+from logging import getLogger
 
 import dotenv
 import jwt
@@ -14,9 +14,9 @@ from .codes import statusCodes
 
 dotenv.load_dotenv(".env")
 
-db = AsyncIOMotorClient(os.getenv("MONGO"), serverSelectionTimeoutMS=5000)[
-    "clubshop"]
+db = AsyncIOMotorClient(os.getenv("MONGO"), serverSelectionTimeoutMS=5000)["clubshop"]
 
+LOGGER = getLogger("Clubshop")
 
 boolFromString: Callable[[str], bool] = lambda string: (
     string.casefold() in ['true', '1', 't', 'y', 'yes',
@@ -36,19 +36,12 @@ class ShopException(Exception):
         self.debug = debug
 
 
-async def validateSig(request: Request, ndc_msg_sig: str = Header(default="")):
+async def validateSig(request: Request, hjtrfs: str = Header(default="")):
     if not CHECK:
         return True
-    if len(b64decode(ndc_msg_sig).hex()) < 42 or not b64decode(
-        ndc_msg_sig
-    ).hex().startswith(PRE):
-        raise ShopException(
-            statusCodes.INVALID_SIGNATURE,
-            "Invalid Signature",
-            "Signature not correct length or doesn't start with prefix.",
-        )
-    mac = HMAC(bytes.fromhex(SIG_KEY), await request.body(), sha256)
-    if mac.hexdigest().casefold() != b64decode(ndc_msg_sig.encode()).hex()[2:]:
+    mac = HMAC(SIG_KEY.encode(), await request.body(), sha256)
+    DIGEST = mac.hexdigest()
+    if mac.hexdigest().casefold() != hjtrfs.casefold():
         raise ShopException(
             statusCodes.INVALID_SIGNATURE,
             "Invalid Signature",
