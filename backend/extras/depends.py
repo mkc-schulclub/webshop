@@ -39,14 +39,6 @@ class ShopException(Exception):
 async def validateSig(request: Request, ndc_msg_sig: str = Header(default="")):
     if not CHECK:
         return True
-    if len(b64decode(ndc_msg_sig).hex()) < 42 or not b64decode(
-        ndc_msg_sig
-    ).hex().startswith(PRE):
-        raise ShopException(
-            statusCodes.INVALID_SIGNATURE,
-            "Invalid Signature",
-            "Signature not correct length or doesn't start with prefix.",
-        )
     mac = HMAC(SIG_KEY.encode(), await request.body(), sha256)
     if mac.hexdigest().casefold() != ndc_msg_sig.casefold():
         raise ShopException(
