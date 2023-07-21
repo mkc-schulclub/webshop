@@ -55,7 +55,8 @@ async def addUser(request: Request):
 
     await db.users.insert_one({
         "name": out["name"],
-        "secret": password
+        "secret": password,
+        "admin": bool(out.get("admin", False))
     })
     
     return {"api:statuscode": statusCodes.SUCCESS}
