@@ -55,7 +55,7 @@ async def updateItem(item: Product):
             "prod_id not in database"
         )
     
-    await db.items.update_one({"prod_id: item.prod_id"}, {k: v for k, v in item.dict().items() if v})
+    await db.items.update_one({"prod_id": item.prod_id}, {k: v for k, v in item.dict().items() if v})
     return {k: v if v else product[k] for k, v in item.dict().items()} | {"api:statuscode": statusCodes.SUCCESS}
 
 
