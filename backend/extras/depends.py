@@ -47,7 +47,7 @@ async def validateSig(request: Request, ndc_msg_sig: str = Header(default="")):
             "Invalid Signature",
             "Signature not correct length or doesn't start with prefix.",
         )
-    mac = HMAC(bytes.fromhex(SIG_KEY), await request.body(), sha256)
+    mac = HMAC(SIG_KEY.encode(), await request.body(), sha256)
     if mac.hexdigest().casefold() != b64decode(ndc_msg_sig.encode()).hex()[2:]:
         raise ShopException(
             statusCodes.INVALID_SIGNATURE,
