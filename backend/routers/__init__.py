@@ -8,5 +8,6 @@ __all__ = (
     authRouter,
     itemRouter,
     orderRouter,
-    userRouter
+    userRouter,
+    keyRouter
 )

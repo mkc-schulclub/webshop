@@ -19,12 +19,12 @@ if __name__ == "__main__":
             host=host,
             ssl_keyfile=os.getenv("KEY_PATH"),
             ssl_certfile=os.getenv("CRT_PATH"),
-            reload=boolFromString(os.getenv("DEBUG"))
+            reload=boolFromString(os.getenv("RELOAD"))
         )
     else:
         uvicorn.run(
             "app:app",
             port=port,
             host=host,
-            reload=boolFromString(os.getenv("DEBUG"))
+            reload=boolFromString(os.getenv("RELOAD"))
         )

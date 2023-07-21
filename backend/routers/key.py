@@ -17,6 +17,7 @@ router = APIRouter(
     "/",
 )
 async def getKeyBase():
+    # TODO: #8 Remove this from code
     return {
         "keyBase": sha256(bytes.fromhex("5F66452D72BBA5C6BD39BDACE83E0EF2")).hexdigest()
     }
