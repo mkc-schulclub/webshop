@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MKC Shop</title>
     <link rel="icon" type="image/vnd.microsoft.icon" href="./images/mkclogo.ico">
-    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.prod.js"></script>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -143,7 +143,7 @@
         </div>
     </div>
     <div id="schulclub" v-if="activePage === 2">
-        <a @click="activePage = 0" href="./admin/">Zum Admin-Interface (für Schulclub-Mitglieder) --&gt</a>
+        <a @click="activePage = 0" href="/admin/">Zum Admin-Interface (für Schulclub-Mitglieder) --&gt</a>
     </div>
 </body>
 </html>

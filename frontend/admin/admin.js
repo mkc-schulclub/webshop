@@ -78,6 +78,7 @@ Vue.createApp({
       },
     
       modProduct() {
+        if (!this.getCookieValue('sessionToken')) return console.error("You are not logged in")
         function goodArray(data) {
           if (Array.isArray(data)) {
             return data;
