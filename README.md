@@ -14,8 +14,9 @@ Der Webshop für den Schulmerch
   - [X] Conditional Anzeigen alles
   - [ ] Funktionierende Oberfläche zum Hinzufügen/Bearbeiten (Admin Interface)
     - [x] add
-    - [ ] edit
+    - [x] edit
     - [x] delete
-    - [x] authentication/login 
+    - [x] authentication/login
+    - [ ] add/delete/edit custom users 
   - [X] Kommunikation mit Backend
   - [ ] Schönes Design
