@@ -119,6 +119,14 @@
             <label for="colors">Motive:</label>
             <input type="text" id="prod_id" ref="motives" v-model="product.motives" />
           </div>
+          <div class="mb-3">
+              <label class="form-label"></label>
+              <label class="btn btn-primary">
+                  Bild auswählen
+                  <input type="file" @change="previewImage" style="display: none;" required>
+              </label>
+              <img id="imagePreview" alt="Selected Image" style="max-width: 100px; display: none;">
+          </div>
           <br>
           <p v-if="false" style="color: green;" > Ein Produkt kann nicht Variationen und Motive gleichzeitig haben.</p>
           <p v-if="error" style="color: red;" >{{ error }}</p>

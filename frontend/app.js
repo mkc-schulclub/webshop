@@ -1,6 +1,7 @@
 Vue.createApp({
   data() {
     return {
+      properties: ['colors', 'sizes', 'motives', 'variations'],
       loading: true,
       activePage: 0,
       darkmode: false,
@@ -29,6 +30,12 @@ Vue.createApp({
     };
   },
   methods: {
+    getProductProperty(product, property) {
+      if (property === 'variations' || property === 'motives') {
+        return product[property].map(value => typeof value === 'object' ? value[1] : value);
+      }
+      return product[property];
+    },
     openPop(title, message) {
       this.popTitle = title
       this.popMessage = message
@@ -117,7 +124,6 @@ Vue.createApp({
     },
     submitCart() {
       data = localStorage.getItem("cart")
-      console.log(data)
       const url = "https://frog.lowkey.gay/vyralux/api/v1/order";
       const options = {
         method: "POST",
@@ -187,6 +193,9 @@ Vue.createApp({
     },
   },
   computed: {
+    displayProperties() {
+      return this.properties.filter(property => this.products.some(product => product[property] && product[property].length > 0));
+    },
     cartItemCount() {
       let totalAmount = 0;
       for (const item of this.cart) {
@@ -196,17 +205,54 @@ Vue.createApp({
     },
   },
   mounted() {
-    fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
-      .then((response) => response.json())
-      .then((data) => {
-        this.products = data;
-        this.loading = false
-      })
-      .catch((error) => {
-        popup = true;
-        error = "Ein Fehler ist aufgetreten!"
-        console.error("Error fetching data:", error);
-      });
+  fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
+    .then((response) => response.json())
+    .then((data) => {
+      this.products = data;
+      this.loading = false
+    })
+    .catch((error) => {
+      popup = true;
+      error = "Ein Fehler ist aufgetreten!"
+      console.error("Error fetching data:", error);
+      this.products = [
+        {
+            "name": "Klinger Galerie T-Shirt",
+            "prod_id": "KGT",
+            "price": "10",
+            "variations": [],
+            "colors": ["rot", "grün", "blau", "schwarz", "chili-red", "weiß", "blün", "prosa"],
+            "sizes": ["S", "M", "L", "XL", "2XL"],
+            "motives": [
+                ["1", "Die Blaue Stunde"],
+                ["2", "Meeresgötter in Brandung"],
+                ["3", "Märztage III"],
+                ["4", "Die Gesandtschaft"],
+                ["5", "Verführung"],
+                ["6", "Der pinkelnde Tod"],
+                ["7", "Entführung"]
+            ]
+        },
+        {
+                "name": "Highschool Colour Edition",
+                "prod_id": "CE",
+                "price": "69",
+          "colors": ["rot", "grün", "blau"],
+                "motives": [],
+                "variations": [
+                  [
+                    "1",
+                    "Ultramarine"
+                  ],
+                  [
+                    "2",
+                    "Emerald"
+                  ]
+                ]
+              }
+        ],
+      this.loading = false
+    });
     this.loadCurrent();
     this.loadCartFromLocal();
   },

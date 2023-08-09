@@ -85,14 +85,19 @@ html, body {
     background-color: #9e9e9e;
   }
 .submitCartBtn {
-  color: whitesmoke;
-  background-color: rgb(14, 148, 14);
   align-items: center;
   align-content: center;
   align-self: center;
   margin-left: 40%;
   margin-bottom: 30px;
 }
+/* remove from cart btn */
+.btn-custom-hover:hover {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+  color: #fff !important;
+}
+/*  */
 nav {
   background-color: #78d6a3;
 }
@@ -171,7 +176,11 @@ form input {
   margin-right: 5px;
   margin-bottom: 10px;
   height: 30px !important;
-  display: flex !important;
+  /* display: flex !important; */
   align-items: baseline !important;
-  margin-bottom: 20px !important;
+}
+.selections {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Add this to create space between button groups */
 }

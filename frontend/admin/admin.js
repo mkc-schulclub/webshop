@@ -175,15 +175,21 @@ Vue.createApp({
           const cookieName = cookie.split('=')[0];
           document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
         }
-      }
+      },
+      previewImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    },
     },
     watch: {
-      activePage() {
-        this.saveCurrent();
-        if (this.activePage === 3) {
-          this.logout()
-        }
-      },
       product: {
         deep: true,
         handler() {
@@ -199,8 +205,8 @@ Vue.createApp({
     computed: {
     },
     mounted() {
-      if (!this.getCookieValue('sessionToken')) window.location = './login';
-      fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
+      if (!this.getCookieValue('sessionToken')) //window.location = './login';
+      /* fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
         .then((response) => response.json())
         .then((data) => {
           this.products = data;
@@ -209,7 +215,8 @@ Vue.createApp({
         .catch((error) => {
           errorPopup = true;
           console.error("Error fetching data:", error);
-        });
+        }); */
+        this.loading = false
         this.loadCurrent()
     },
   }).mount("body");
