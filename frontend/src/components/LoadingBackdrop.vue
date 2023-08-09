@@ -1,4 +1,28 @@
-.loading-backdrop {
+<template>
+    <div v-if="ifLoading" class="loading-backdrop">
+      <div class="loading-content">
+        <span class="loading-text">Laden</span>
+        <span class="loading-dots">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </span>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  import { mapGetters } from "vuex";
+
+  export default {
+    computed: {
+      ...mapGetters(["ifLoading"]),
+    },
+  };
+  </script>
+  
+  <style scoped>
+  .loading-backdrop {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,6 +32,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 999;
   }
   
   .loading-content {
@@ -46,3 +71,5 @@
       opacity: 0.3;
     }
   }
+  </style>
+  
