@@ -124,6 +124,7 @@
 <script>
 import { computed, ref } from "vue";
 import { mapState, mapActions, mapGetters, mapMutations, useStore } from "vuex";
+import Fuse from 'fuse.js';
 
 export default {
   setup() {
@@ -170,9 +171,13 @@ export default {
       let filtered = this.products;
       if (this.searchTerm) {
         const searchTerm = this.searchTerm.toLowerCase();
-        filtered = filtered.filter((product) =>
-          product.name.toLowerCase().includes(searchTerm)
-        );
+        const fuse = new Fuse(this.products, {
+          keys: ['name'],
+          threshold: 0.5,
+        });
+      const searchResults = fuse.search(searchTerm);
+      const matchingProducts = searchResults.map((result) => result.item);
+      filtered = matchingProducts;
       }
       if (this.selectedSize) {
         filtered = filtered.filter(
