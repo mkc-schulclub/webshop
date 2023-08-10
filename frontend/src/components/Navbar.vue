@@ -71,13 +71,15 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    overflow-x: auto;
+    /*overflow-x: auto;*/
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
   }
   #navcontent .nav-item {
     white-space: nowrap;
-    margin: 0 3vh;
+    /*margin: 0 3vh;*/
+    margin-left: 0;
+    margin-right: 1em;
   }
   .navbar-brand {
     margin-left: 4vh;

@@ -8,7 +8,7 @@
         placeholder="Produkte suchen..."
       />
     </div>
-    <div class="my-3 row">
+    <div class="my-3 row filters">
       <h4 class="col-lg-1">Filter:</h4>
       <div class="form-group col-lg-1">
         <select id="sizeFilter" class="dropdown" v-model="selectedSize">
@@ -92,7 +92,7 @@
           <div class="container mt-4">
             <button
               type="button"
-              class="btn btn-sm cart-btn mb-1"
+              class="btn btn-success cart-btn mb-1"
               @click.prevent="addToCart(product)"
               :disabled="!propertiesSelected(product)"
               :class="{ 'disabled-button': !propertiesSelected(product) }"
@@ -307,10 +307,7 @@ export default {
   background-color: #d1f4e1;
 }
 .cart-btn {
-  background-color: #4ec797;
-}
-.cart-btn:hover {
-  background-color: #35b280;
+  margin: 20px;
 }
 .btn-select {
   background-color: #78d6a3 !important;
@@ -334,8 +331,12 @@ export default {
     margin-top: 2em;
   }
   .image {
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 100%;
+    height: auto;
+    overflow: hidden;
   }
+}
+.btn-group:last-child {
+  margin-bottom: 3em;
 }
 </style>
