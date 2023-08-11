@@ -24,10 +24,8 @@ export default {
   setup() {
     const store = useStore();
     const darkMode = ref(store.state.darkMode);
-    let dark = false;
-    watch(() => store.state.darkMode, () => {
-      dark = !dark
-      if (dark) {
+    watch(() => store.state.darkMode, (newMode) => {
+      if (newMode === true) {
         document.documentElement.style.background = "#2B2A33"
         document.getElementById("app").classList.add("darkmode")
         return
@@ -45,6 +43,7 @@ export default {
   },
   methods: {
     ...mapActions(['getCart']),
+    ...mapActions(['getDarkMode']),
   },
   components: {
     LoadingBackdrop,
@@ -62,6 +61,7 @@ export default {
   },
   created() {
     this.getCart();
+    this.getDarkMode();
 },
 };
 </script>

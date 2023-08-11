@@ -83,6 +83,7 @@ const store = createStore({
   mutations: {
     toggleDarkMode(state) {
       state.darkMode = !state.darkMode;
+      localStorage.setItem("darkMode", state.darkMode)
     },
     route(state, name) {
       state.activePage = 0;
@@ -96,6 +97,9 @@ const store = createStore({
     },
     getLocalCart(state, data) {
       state.cart = data;
+    },
+    getDarkMode(state, data) {
+      state.darkMode = data;
     },
     setActivePage(state, page) {
       state.activePage = page;
@@ -113,6 +117,9 @@ const store = createStore({
     },
   },
   actions: {
+    getDarkMode({ commit }) {
+      commit("getDarkMode", eval(localStorage.getItem("darkMode")))
+    },
     getCart({ commit }) {
       const data = localStorage.getItem("cart");
       if (data) {
