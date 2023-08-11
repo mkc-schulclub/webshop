@@ -61,7 +61,7 @@ export default {
     },
     login(username, password) {
       let key;
-      const data = {
+      const userAuth = {
         name: username,
         password: password,
       };
@@ -85,11 +85,11 @@ export default {
             headers: {
               "Content-Type": "application/json",
               hjtrfs: CryptoJS.HmacSHA256(
-                JSON.stringify(data),
+                JSON.stringify(userAuth),
                 this.getCookieValue("key")
               ).toString(CryptoJS.enc.Hex),
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(userAuth),
           });
         })
         .then((response) => response.json())
@@ -101,7 +101,7 @@ export default {
               expirationDate.getTime() + 24 * 60 * 60 * 1000
             );
             document.cookie = `sessionToken=${sid}; expiress=${expirationDate.toUTCString()}; path=/; SameSite=None; secure`;
-            this.router.push("/");
+            this.router.push("/admin");
           } else {
             console.error("No session token generated");
             this.errorMessage = "Bitte nochmal versuchen!";
