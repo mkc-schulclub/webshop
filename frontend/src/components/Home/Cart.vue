@@ -2,47 +2,49 @@
   <p v-if="activePage == 1 && !cart.length" class="mx-4">{{ "Der Warenkorb ist leer" }}</p>
   <div class="cart" v-if="activePage === 1">
     <ul v-for="(product, index) in cart" :key="index">
-      <div>
+      <div class="row">
         <h3>{{ product.name }}</h3>
-        <div class="image">
+        <div class="image col-md-2">
           <img src="../images/cart.png" />
         </div>
-        <ul v-if="product.color">
-          <b>Farbe:</b>
-          {{
-            product.color
-          }}
-        </ul>
-        <ul v-if="product.size">
-          <b>Größe:</b>
-          {{
-            product.size
-          }}
-        </ul>
-        <ul v-if="product.motive">
-          <b>Motiv:</b>
-          {{
-            Object.values(product.motive)[0]
-          }}
-        </ul>
-        <ul v-if="product.variation">
-          <b>Variation:</b>
-          {{
-            Object.values(product.variation)[0]
-          }}
-        </ul>
-        <ul>
-          <b>Preis:</b>
-          {{
-            `${product.price}€`
-          }}
-        </ul>
-        <ul>
-          <b>Anzahl:</b
-          >{{
-            product.amount
-          }}
-        </ul>
+        <div class="col-md-8">
+          <ul v-if="product.color">
+            <b>Farbe:</b>
+            {{
+              product.color
+            }}
+          </ul>
+          <ul v-if="product.size">
+            <b>Größe:</b>
+            {{
+              product.size
+            }}
+          </ul>
+          <ul v-if="product.motive">
+            <b>Motiv:</b>
+            {{
+              Object.values(product.motive)[0]
+            }}
+          </ul>
+          <ul v-if="product.variation">
+            <b>Variation:</b>
+            {{
+              Object.values(product.variation)[0]
+            }}
+          </ul>
+          <ul>
+            <b>Preis:</b>
+            {{
+              `${product.price}€`
+            }}
+          </ul>
+          <ul>
+            <b>Anzahl:</b
+            >{{
+              product.amount
+            }}
+          </ul>
+        </div>
         <div>
           <button
             class="btn btn-secondary btn-custom-hover"
