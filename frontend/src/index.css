@@ -21,9 +21,9 @@
     border-color: #535353 !important;
 }
 .darkmode select {
-    background-color: #2B2A33;
+    background-color: #2B2A33 !important;
     border-color: #2B2A33;
-    color: #D1CDC7;
+    color: #D1CDC7 !important;
     padding: 10px 20px;
     border: none;
     border-radius: 10px;

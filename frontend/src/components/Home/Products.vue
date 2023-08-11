@@ -344,4 +344,11 @@ export default {
 .btn-group:last-child {
   margin-bottom: 3em;
 }
+.dropdown {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #afafaf;
+}
 </style>
