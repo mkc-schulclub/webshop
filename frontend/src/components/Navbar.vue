@@ -72,7 +72,7 @@ export default {
 <style scoped>
 @import 'bootstrap/dist/css/bootstrap.css';
 nav {
-  background-color: #78d6a3;
+  background-color: var(--my-primary);;
 }
 @media (max-width: 1000px) {
   #navcontent {

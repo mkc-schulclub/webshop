@@ -309,13 +309,13 @@ export default {
 
 <style scoped>
 .card-body {
-  background-color: #d1f4e1;
+  background-color: #c6f1d9;
 }
 .cart-btn {
   margin: 20px;
 }
 .btn-select {
-  background-color: #78d6a3 !important;
+  background-color: var(--my-primary) !important;
   height: 40px !important;
   border-color: #000000 !important;
 }

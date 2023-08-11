@@ -69,6 +69,7 @@ export default {
 <style> 
   @import 'bootstrap/dist/css/bootstrap.css';
   @import './dark.css';
+  @import './index.css';
   #app {
     height:100vh;
   }
