@@ -312,6 +312,7 @@ export default {
   background-color: #c6f1d9;
 }
 .cart-btn {
+  margin-top: 0;
   margin: 20px;
 }
 .btn-select {
@@ -340,9 +341,9 @@ export default {
     height: auto;
     overflow: hidden;
   }
-}
-.btn-group:last-child {
-  margin-bottom: 3em;
+  .btn-group:last-child {
+    margin-bottom: 3em;
+  }
 }
 .dropdown {
   padding: 10px 20px;
