@@ -8,7 +8,7 @@ const store = createStore({
     cartCount: 0,
     route: "Home",
     pages: [],
-    products: null,
+    products: [],
     cart: [],
     popup: {
       title: "",
@@ -129,55 +129,14 @@ const store = createStore({
     setActivePage(context, page) {
       context.commit("setActivePage", page);
     },
-    async fetchProducts(context) {
+    fetchProducts(context) {
       context.commit("Loading");
-      context.commit("fetchProducts", [
-        {
-          name: "Klinger Galerie T-Shirt",
-          prod_id: "KGT",
-          price: "10",
-          variations: [],
-          colors: [
-            "rot",
-            "grün",
-            "blau",
-            "schwarz",
-            "chili-red",
-            "weiß",
-            "blün",
-            "prosa",
-          ],
-          sizes: ["S", "M", "L", "XL", "2XL"],
-          motives: [
-            ["1", "Die Blaue Stunde"],
-            ["2", "Meeresgötter in Brandung"],
-            ["3", "Märztage III"],
-            ["4", "Die Gesandtschaft"],
-            ["5", "Verführung"],
-            ["6", "Der pinkelnde Tod"],
-            ["7", "Entführung"],
-          ],
-        },
-        {
-          name: "Highschool Colour Edition",
-          prod_id: "CE",
-          price: "69",
-          colors: ["rot", "grün", "blau", "deez"],
-          motives: [],
-          variations: [
-            ["1", "Ultramarine"],
-            ["2", "Emerald"],
-          ],
-        },
-      ]);
-      context.commit("notLoading");
-      try {
-          const response = await fetch('your-api-endpoint');
-          const data = await response.json();
-          context.commit('fetchProducts', data);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
+      fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
+      .then((response) => response.json())
+      .then((data) => {
+        context.commit('fetchProducts', data);
+        context.commit("notLoading");
+      })
     },
   },
 });
