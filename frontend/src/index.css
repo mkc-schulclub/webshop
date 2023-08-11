@@ -1,0 +1,35 @@
+.darkmode {
+    color: #D1CDC7;
+    background-color: #181A1B;
+}
+.darkmode nav {
+    background-color: #247856;
+}
+.darkmode nav a {
+    color: #D1CDC7;
+}
+.darkmode .card {
+    background-color: #10452F;
+}
+.darkmode .card-body {
+    color: #D1CDC7;
+    background-color: #10452F;
+}
+.darkmode input, .darkmode input:focus, .darkmode input::placeholder {
+    color: #D1CDC7 !important;
+    background-color: #181A1B !important;
+    border-color: #535353 !important;
+}
+.darkmode select {
+    background-color: #2B2A33;
+    border-color: #2B2A33;
+    color: #D1CDC7;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.darkmode .btn-select {
+    background-color: #247856 !important;
+    color: #D1CDC7;
+}

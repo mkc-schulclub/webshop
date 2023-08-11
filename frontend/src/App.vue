@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="">
     <LoadingBackdrop/>
     <Navbar/>
     <Header/>
@@ -17,18 +17,31 @@ import Popup from './components/Popup.vue'
 import Home from './components/Home/Home.vue'
 import Admin from './components/Admin/Admin.vue'
 
-import { computed } from 'vue';
+import { watch, ref } from 'vue';
 import { mapState, mapActions, useStore } from 'vuex';
 
 export default {
   setup() {
     const store = useStore();
+    const darkMode = ref(store.state.darkMode);
+    let dark = false;
+    watch(() => store.state.darkMode, () => {
+      dark = !dark
+      if (dark) {
+        document.documentElement.style.background = "#2B2A33"
+        document.getElementById("app").classList.add("darkmode")
+        return
+      }
+      document.documentElement.style.background = "white"
+      document.getElementById("app").classList.remove("darkmode")
+    });
     return {
-    
+      darkMode,
+      store,
     };
   },
   computed: {
-    ...mapState(['activePage'])
+    ...mapState(['activePage']),
   },
   methods: {
     ...mapActions(['getCart']),
@@ -43,7 +56,8 @@ export default {
   },
   data() {
     return {
-      
+      dark: false,
+      eventBus: app,
     };
   },
   created() {
@@ -54,4 +68,8 @@ export default {
 
 <style> 
   @import 'bootstrap/dist/css/bootstrap.css';
+  @import './index.css';
+  #app {
+    height:100vh;
+  }
 </style>

@@ -27,19 +27,21 @@
             Zurück zu Home
           </router-link>
       </ul>
+      <button class="btn btn-success" @click="toggleDarkMode">Darkmode</button>
     </div>
   </nav>
 </template>
 
 <script>
-import { computed } from 'vue';
-import { mapState, mapGetters, useStore } from 'vuex';
+import { computed, ref } from 'vue';
+import { mapState, mapGetters, useStore, mapMutations } from 'vuex';
 
 export default {
   setup() {
     const store = useStore();
     const activePage = computed(() => store.state.activePage);
     const cartItemCount = computed(() => store.getters.cartItemCount);
+    const darkMode = ref(store.state.darkMode);
     const route = computed(() => store.state.route);
 
     const setPage = (page) => {
@@ -47,6 +49,8 @@ export default {
     };
 
     return {
+      store,
+      darkMode,
       route,
       activePage,
       cartItemCount,
@@ -56,7 +60,12 @@ export default {
   computed: {
     ...mapGetters(['cartItemCount']),
     ...mapGetters(['pages']),
-  }
+  },
+  methods: {
+    toggleDarkMode() {
+      this.$store.commit('toggleDarkMode');
+    },
+  },
 };
 </script>
 

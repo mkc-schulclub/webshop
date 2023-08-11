@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 
 const store = createStore({
   state: {
+    darkMode: false,
     loading: false,
     activePage: 0,
     cartCount: 0,
@@ -80,6 +81,9 @@ const store = createStore({
     },
   },
   mutations: {
+    toggleDarkMode(state) {
+      state.darkMode = !state.darkMode;
+    },
     route(state, name) {
       state.activePage = 0;
       state.route = name;
