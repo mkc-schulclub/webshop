@@ -171,13 +171,13 @@ const store = createStore({
         },
       ]);
       context.commit("notLoading");
-      /* try {
+      try {
           const response = await fetch('your-api-endpoint');
           const data = await response.json();
           context.commit('fetchProducts', data);
         } catch (error) {
           console.error('Error fetching data:', error);
-        } */
+        }
     },
   },
 });

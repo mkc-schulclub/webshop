@@ -59,9 +59,9 @@
           </h4>
 
           <div class="d-flex align-items-center">
-            <button @click="edit(product)">Bearbeiten</button>
+            <button @click="edit(product)" class="btn btn-success">Bearbeiten</button>
             <button
-              style="background-color: rgb(207, 98, 58)"
+              class="btn btn-danger"
               v-if="!product.surely"
               @click="product.surely = true"
             >
@@ -69,19 +69,19 @@
             </button>
             <div>
               <div v-if="product.surely">
-                <p style="background-color: white">Wirklich löschen?</p>
+                <p>Wirklich löschen?</p>
                 <button
                   @click="
                     product.surely = false;
                     deleteProduct(product);
                   "
-                  style="background-color: green; margin-right: 30px"
+                  class="btn btn-success" style="margin-left: 20px"
                 >
                   ✓
                 </button>
                 <button
                   @click="product.surely = false"
-                  style="background-color: red"
+                  class="btn btn-danger"
                 >
                   X
                 </button>
@@ -178,10 +178,11 @@
               product.motives.length && product.variations.length,
           }"
           type="submit"
+          class="btn btn-success"
         >
           Fertig
         </button>
-        <button @click.prevent="mode = 'view'">Abbrechen</button>
+        <button @click.prevent="mode = 'view'" class="btn btn-danger">Abbrechen</button>
       </div>
     </form>
   </div>

@@ -33,3 +33,6 @@
     background-color: #247856 !important;
     color: #D1CDC7;
 }
+.darkmode .productcontainer p {
+    background-color: #10452F;
+}

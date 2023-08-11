@@ -26,7 +26,7 @@ export default {
     const darkMode = ref(store.state.darkMode);
     watch(() => store.state.darkMode, (newMode) => {
       if (newMode === true) {
-        document.documentElement.style.background = "#2B2A33"
+        document.documentElement.style.background = "#181A1B"
         document.getElementById("app").classList.add("darkmode")
         return
       }
