@@ -98,8 +98,11 @@
     <h2 v-if="mode === 'add'">Produkt hinzufügen</h2>
     <h2 v-if="mode === 'edit'">Produkt bearbeiten</h2>
     <h6>
-      Hinweis: Mehrere angaben (wie bei Farben, Größen, Motiven oder
-      Variationen) müssen mit Komma getrennt sein.
+      Hinweise:
+      <ul class="mb-1">
+        <li>Angaben wie bei Farben, Größen etc. müssen mit Komma getrennt sein.</li>
+        <li>Größe/Auflösung von Bildern sollte so klein wie möglich sein. Vorzugsweise Bilder in .webp format konvertieren</li>
+      </ul>
     </h6>
     <p style="color: gray">Bsp.: Motive: Klinger Kopf, MKC Logo</p>
     <form id="productForm" ref="productForm" @submit.prevent="modProduct">
@@ -115,7 +118,7 @@
           id="prod_id"
           v-model="product.prod_id"
           required
-        />
+        >
       </div>
       <div>
         <label for="price">Preis</label>
@@ -227,6 +230,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['fetchProducts']),
     adding() {
       this.product = {
         name: "",
