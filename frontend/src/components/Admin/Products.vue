@@ -200,11 +200,7 @@ export default {
     const store = useStore();
     const router = useRouter();
     const activePage = computed(() => store.state.activePage);
-    onMounted(() => {
-      store.dispatch("fetchProducts");
-    });
     return {
-      
       activePage,
     };
   },
@@ -231,7 +227,6 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["fetchProducts"]),
     adding() {
       this.product = {
         name: "",
