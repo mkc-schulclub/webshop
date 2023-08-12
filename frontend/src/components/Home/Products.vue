@@ -114,7 +114,7 @@
         </div>
       </div>
       <div class="image img-fluid">
-        <img src="../images/IMG_2386.jpg" height="300" />
+        <img src="../images/IMG_2386.webp" height="300" />
       </div>
     </div>
   </ul>
