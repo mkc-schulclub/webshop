@@ -5,8 +5,8 @@
 </template>
   
 <script>
-    import { computed } from 'vue';
-    import { useStore } from 'vuex';
+    import { computed, onMounted } from 'vue';
+    import { useStore, mapActions } from 'vuex';
 
     import Products from './Products.vue';
     import Cart from './Cart.vue'
@@ -16,6 +16,9 @@
         setup() {
             const store = useStore();
             const activePage = computed(() => store.state.activePage);
+            onMounted(() => {
+                store.dispatch("fetchProducts");
+            });
             return {
                 activePage,
             }
@@ -25,6 +28,9 @@
             Cart,
             Schulclub,
         },
+        methods: {
+            ...mapActions(["fetchProducts"]),
+        }
     };
 </script>
   

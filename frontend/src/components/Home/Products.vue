@@ -213,7 +213,6 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["fetchProducts"]),
     getProductProperty(product, property) {
       if (property === "variations" || property === "motives") {
         return product[property].map((value) =>
@@ -290,9 +289,6 @@ export default {
       }
       localStorage.setItem("cart", JSON.stringify(this.cart));
     },
-  },
-  created() {
-    this.fetchProducts();
   },
   data() {
     return {
