@@ -1,5 +1,4 @@
 <template>
-  <router-link to="/">Back to Home</router-link>
   <Products v-if="activePage === 1" />
 </template>
 
