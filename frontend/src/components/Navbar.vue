@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand ml-4" href="" @click.prevent="setPage(0)">MKC Merch-Store</a>
+    <router-link @click="setPage(0)" class="navbar-brand ml-4" to="/">MKC Merch-Store</router-link>
     <div class="container-fluid">
       <ul id="navcontent" class="navbar-nav me-auto mb-2 mb-lg-0">
         <li v-for="(page, index) in pages" :key="index" class="nav-item">

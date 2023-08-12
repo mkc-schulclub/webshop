@@ -316,6 +316,7 @@ export default {
         .catch((error) => {
           this.errorPopup = true;
           this.error = error;
+          console.error(error)
           console.error("Error fetching data:", error);
         });
     },
