@@ -293,21 +293,21 @@ export default {
           : [],
       };
       this.$refs.productForm.reset();
-      data = JSON.stringify(newProduct);
+      let productData = JSON.stringify(newProduct);
       fetch("https://frog.lowkey.gay/vyralux/api/v1/items", {
         method: METH,
         headers: {
           "Content-Type": "application/json",
           hjtrfs: CryptoJS.HmacSHA256(
-            data,
+            productData,
             this.getCookieValue("key")
           ).toString(CryptoJS.enc.Hex),
           ndcauth: this.getCookieValue("sessionToken"),
         },
-        body: data,
+        body: productData,
       })
         .then((response) => {
-          console.log(response.status, response.statusText, response);
+          let resp = (response.status, response.statusText, response)
         })
         .then(() => {
           this.fetchProducts();
@@ -338,14 +338,13 @@ export default {
           console.log(response.status, response.statusText);
           return response;
         })
+        .then(() => {
+          this.fetchProducts();
+          this.mode = "view";
+        })
         .catch((error) => {
           this.errorPopup = true;
           console.error("Error fetching data:", error);
-        });
-      fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
-        .then((response) => response.json())
-        .then((data) => {
-          this.products = data;
         });
     },
     previewImage(event) {

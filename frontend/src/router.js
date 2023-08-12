@@ -39,10 +39,12 @@ router.beforeEach((to, from, next) => {
 });
 
 
-const cookie = document.cookie.split('; ').find(row => row.startsWith('sessionToken='));
+function cookie() {
+  return document.cookie.split('; ').find(row => row.startsWith('sessionToken='))
+}
 
 router.beforeEach((to, from, next) => {
-  if (to.name === 'Admin' && !(cookie ? cookie.split('=')[1] : false)) {
+  if (to.name === 'Admin' && !(cookie() ? cookie().split('=')[1] : false)) {
     next("/admin/login");
   } else {
     next();
