@@ -113,7 +113,6 @@ export default {
         });
     },
   },
-  ponents: {},
 };
 </script>
 
