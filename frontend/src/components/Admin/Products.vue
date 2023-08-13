@@ -59,7 +59,9 @@
           </h4>
 
           <div class="d-flex align-items-center">
-            <button @click="edit(product)" class="btn btn-success">Bearbeiten</button>
+            <button @click="edit(product)" class="btn btn-success">
+              Bearbeiten
+            </button>
             <button
               class="btn btn-danger"
               v-if="!product.surely"
@@ -75,14 +77,12 @@
                     product.surely = false;
                     deleteProduct(product);
                   "
-                  class="btn btn-success" style="margin-left: 20px"
+                  class="btn btn-success"
+                  style="margin-left: 20px"
                 >
                   ✓
                 </button>
-                <button
-                  @click="product.surely = false"
-                  class="btn btn-danger"
-                >
+                <button @click="product.surely = false" class="btn btn-danger">
                   X
                 </button>
               </div>
@@ -100,12 +100,21 @@
     <h6>
       Hinweise:
       <ul class="mb-1">
-        <li>Angaben wie bei Farben, Größen etc. müssen mit Komma getrennt sein.</li>
-        <li>Größe/Auflösung von Bildern sollte so klein wie möglich sein. Vorzugsweise Bilder in .webp format konvertieren</li>
+        <li>
+          Angaben wie bei Farben, Größen etc. müssen mit Komma getrennt sein.
+        </li>
+        <li>
+          Größe/Auflösung von Bildern sollte so klein wie möglich sein.
+          Vorzugsweise Bilder in .webp format konvertieren
+        </li>
       </ul>
     </h6>
+    <form @submit.prevent="console.log('success')">
+      <p>idek</p>
+      <button type="submit">aha</button>
+    </form>
     <p style="color: gray">Bsp.: Motive: Klinger Kopf, MKC Logo</p>
-    <form id="productForm" ref="productForm" @submit.prevent="modProduct">
+    <form id="productForm" ref="productForm" @submit.prevent="console.log('success')">
       <div>
         <label for="name">Name:</label>
         <input type="text" id="name" v-model="product.name" required />
@@ -118,7 +127,7 @@
           id="prod_id"
           v-model="product.prod_id"
           required
-        >
+        />
       </div>
       <div>
         <label for="price">Preis</label>
@@ -126,17 +135,17 @@
       </div>
       <div>
         <label for="sizes">Größen:</label>
-        <input type="text" id="prod_id" v-model="product.sizes" />
+        <input type="text" id="sizes" v-model="product.sizes" />
       </div>
       <div>
         <label for="colors">Farben:</label>
-        <input type="text" id="prod_id" v-model="product.colors" />
+        <input type="text" id="colors" v-model="product.colors" />
       </div>
       <div>
         <label for="colors">Variationen:</label>
         <input
           type="text"
-          id="prod_id"
+          id="variation"
           ref="variations"
           v-model="product.variations"
         />
@@ -145,7 +154,7 @@
         <label for="colors">Motive:</label>
         <input
           type="text"
-          id="prod_id"
+          id="motives"
           ref="motives"
           v-model="product.motives"
         />
@@ -175,17 +184,18 @@
       <br />
       <div class="d-flex align-items-center">
         <button
-          @click.prevent="modProduct"
+          type="submit"
           :class="{
             'disabled-button':
               product.motives.length && product.variations.length,
           }"
-          type="submit"
           class="btn btn-success"
         >
           Fertig
         </button>
-        <button @click.prevent="mode = 'view'" class="btn btn-danger">Abbrechen</button>
+        <button @click.prevent="mode = 'view'" class="btn btn-danger">
+          Abbrechen
+        </button>
       </div>
     </form>
   </div>
@@ -293,6 +303,7 @@ export default {
       };
       this.$refs.productForm.reset();
       let productData = JSON.stringify(newProduct);
+      let code;
       fetch("https://frog.lowkey.gay/vyralux/api/v1/items", {
         method: METH,
         headers: {
@@ -305,19 +316,34 @@ export default {
         },
         body: productData,
       })
-        .then((response) => {
-          let resp = (response.status, response.statusText, response)
-        })
-        .then(() => {
+      .then((response) => {
+        code = response.status
+        return response = response.json()
+      })
+      .then((response) => {
+        let title, message
+        message = response["api:message"]
+        if (code === 200) {
           this.fetchProducts();
           this.mode = "view";
-        })
-        .catch((error) => {
-          this.errorPopup = true;
-          this.error = error;
-          console.error(error)
-          console.error("Error fetching data:", error);
-        });
+          return
+        }
+        else {
+          title = code === 500 ? "Ein Fehler ist aufgetreten" : ''
+          if (response["api:message"] === "Invalid Session") {
+            title = "Du bist nicht eingeloggt! Du wirst zum Login weitergeleitet..."
+            this.$store.commit('setPopup', { isVisible: true, title: title, message: message })
+             return setTimeout(() => {
+              router.push("/admin/login");
+              this.$store.commit('setPopup', { isVisible: false })
+            }, 3000);
+          }
+        }
+        this.$store.commit('setPopup', { isVisible: true, title: title, message: message })
+      })
+      .catch((error) => {
+        console.error("Fehler:", error);
+      })
     },
     deleteProduct(product) {
       this.editProduct = product;

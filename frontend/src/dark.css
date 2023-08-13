@@ -36,3 +36,6 @@
 .darkmode .productcontainer p {
     background-color: #10452F;
 }
+.darkmode .dialog-content {
+    color: black;
+}
