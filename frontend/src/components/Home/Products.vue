@@ -113,7 +113,7 @@
           </div>
         </div>
       </div>
-      <div class="">
+      <div class="zoomer">
         <img src="../images/IMG_2386.webp" class="rounded mx-auto d-block image img-fluid">
       </div>
     </div>
@@ -315,6 +315,10 @@ export default {
   background-color: var(--my-primary) !important;
   height: 40px !important;
   border-color: #000000 !important;
+  transition: transform 0.1s ease;
+}
+.btn-select:hover{
+  transform: scale(1.1);
 }
 .btn-select.active {
   background-color: #4ec797 !important;
@@ -327,9 +331,17 @@ export default {
   /* display: flex !important; */
   align-items: baseline !important;
 }
+.zoomer {
+  position: relative;
+  overflow: hidden;
+}
+.zoomer:hover .image {
+  transform: scale(1.1);
+}
 .image {
-  max-width: 95%;
+  max-width: 90%;
   height: auto;
+  transition: transform 0.3s ease;
 }
 @media (max-width: 560px) {
   .btn-group {

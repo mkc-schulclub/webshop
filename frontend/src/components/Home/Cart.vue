@@ -5,7 +5,7 @@
       <div class="row">
         <h3>{{ product.name }}</h3>
         <div class="image col-md-2">
-          <img src="../images/cart.png" />
+          <img src="../images/IMG_2386.webp" height="175"/>
         </div>
         <div class="col-md-8">
           <ul v-if="product.color">
