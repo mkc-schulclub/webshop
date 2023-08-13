@@ -109,10 +109,6 @@
         </li>
       </ul>
     </h6>
-    <form @submit.prevent="console.log('success')">
-      <p>idek</p>
-      <button type="submit">aha</button>
-    </form>
     <p style="color: gray">Bsp.: Motive: Klinger Kopf, MKC Logo</p>
     <form ref="productForm" @submit.prevent="console.log('success')">
       <div>
