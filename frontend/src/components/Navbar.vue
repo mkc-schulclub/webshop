@@ -1,6 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg">
-    <router-link @click="setPage(0)" class="navbar-brand ml-4" to="/">MKC Merch-Store</router-link>
+    <router-link @click="setPage(0)" class="navbar-brand ml-4" to="/"
+      >MKC Merch-Store</router-link
+    >
     <div class="container-fluid">
       <ul id="navcontent" class="navbar-nav me-auto mb-2 mb-lg-0">
         <li v-for="(page, index) in pages" :key="index" class="nav-item">
@@ -12,20 +14,22 @@
             @click.prevent="setPage(index)"
           >
             {{ page.pageTitle }}
-            <span 
-            class="badge rounded-pill bg-danger"
-            v-if="index === 1 && route === 'Home' && cartItemCount">
+            <span
+              class="badge rounded-pill bg-danger"
+              v-if="index === 1 && route === 'Home' && cartItemCount"
+            >
               {{ cartItemCount }}
             </span>
           </a>
         </li>
-        <router-link 
-            v-if="route === 'Login'"
-            class="nav-link" 
-            :title="`Zu Home`"
-            to="/">
-            Zurück zu Home
-          </router-link>
+        <router-link
+          v-if="route === 'Login'"
+          class="nav-link"
+          :title="`Zu Home`"
+          to="/"
+        >
+          Zurück zu Home
+        </router-link>
       </ul>
       <button class="btn btn-success" @click="toggleDarkMode">Darkmode</button>
     </div>
@@ -33,8 +37,8 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
-import { mapState, mapGetters, useStore, mapMutations } from 'vuex';
+import { computed, ref } from "vue";
+import { mapState, mapGetters, useStore, mapMutations } from "vuex";
 
 export default {
   setup() {
@@ -45,7 +49,7 @@ export default {
     const route = computed(() => store.state.route);
 
     const setPage = (page) => {
-      store.dispatch('setActivePage', page);
+      store.dispatch("setActivePage", page);
     };
 
     return {
@@ -58,21 +62,21 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['cartItemCount']),
-    ...mapGetters(['pages']),
+    ...mapGetters(["cartItemCount"]),
+    ...mapGetters(["pages"]),
   },
   methods: {
     toggleDarkMode() {
-      this.$store.commit('toggleDarkMode');
+      this.$store.commit("toggleDarkMode");
     },
   },
 };
 </script>
 
 <style scoped>
-@import 'bootstrap/dist/css/bootstrap.css';
+@import "bootstrap/dist/css/bootstrap.css";
 nav {
-  background-color: var(--my-primary);;
+  background-color: var(--my-primary);
 }
 @media (max-width: 1000px) {
   #navcontent {

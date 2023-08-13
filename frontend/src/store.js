@@ -83,12 +83,12 @@ const store = createStore({
   mutations: {
     toggleDarkMode(state) {
       state.darkMode = !state.darkMode;
-      localStorage.setItem("darkMode", state.darkMode)
+      localStorage.setItem("darkMode", state.darkMode);
     },
     route(state, name) {
       state.activePage = 0;
       state.route = name;
-  },
+    },
     Loading(state, value) {
       state.loading = true;
     },
@@ -118,7 +118,7 @@ const store = createStore({
   },
   actions: {
     getDarkMode({ commit }) {
-      commit("getDarkMode", eval(localStorage.getItem("darkMode")))
+      commit("getDarkMode", eval(localStorage.getItem("darkMode")));
     },
     getCart({ commit }) {
       const data = localStorage.getItem("cart");
@@ -132,11 +132,11 @@ const store = createStore({
     fetchProducts(context) {
       context.commit("Loading");
       fetch("https://frog.lowkey.gay/vyralux/api/v1/items")
-      .then((response) => response.json())
-      .then((data) => {
-        context.commit('fetchProducts', data);
-        context.commit("notLoading");
-      })
+        .then((response) => response.json())
+        .then((data) => {
+          context.commit("fetchProducts", data);
+          context.commit("notLoading");
+        });
     },
   },
 });

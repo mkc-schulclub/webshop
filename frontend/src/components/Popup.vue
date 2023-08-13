@@ -1,33 +1,33 @@
 <template>
   <div>
     <div v-if="popup.isVisible" class="dialog-overlay">
-        <div class="dialog-content">
-            <h2>{{ popup.title }}</h2>
-            <p>{{ popup.message }}</p>
-            <button @click="closePop">Schließen</button>
-        </div>
+      <div class="dialog-content">
+        <h2>{{ popup.title }}</h2>
+        <p>{{ popup.message }}</p>
+        <button @click="closePop">Schließen</button>
+      </div>
     </div>
-</div>
+  </div>
 </template>
-  
-<script>
-import { computed, ref } from 'vue';
-import { mapState, mapActions, mapGetters, useStore } from 'vuex';
 
-  export default {
-    computed: {
-    ...mapGetters(['popup']),
+<script>
+import { computed, ref } from "vue";
+import { mapState, mapActions, mapGetters, useStore } from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters(["popup"]),
   },
   methods: {
     closePop() {
-      this.$store.commit('setPopup', { isVisible: false });
+      this.$store.commit("setPopup", { isVisible: false });
     },
   },
-  };
+};
 </script>
-  
+
 <style scoped>
-@import 'bootstrap/dist/css/bootstrap.css';
+@import "bootstrap/dist/css/bootstrap.css";
 .dialog-overlay {
   position: fixed;
   top: 0;

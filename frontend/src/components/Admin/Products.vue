@@ -114,27 +114,30 @@
       <button type="submit">aha</button>
     </form>
     <p style="color: gray">Bsp.: Motive: Klinger Kopf, MKC Logo</p>
-    <form
-      ref="productForm"
-      @submit.prevent="console.log('success')"
-    >
+    <form ref="productForm" @submit.prevent="console.log('success')">
       <div>
         <label for="name">Name:</label>
         <input type="text" id="name" v-model="product.name" required />
       </div>
-       <div>
+      <div>
         <label for="prod_id">Produkt-ID:</label>
-        <input v-bind:disabled="mode === 'edit'" type="text" id="prod_id" v-model="product.prod_id" required/>
+        <input
+          v-bind:disabled="mode === 'edit'"
+          type="text"
+          id="prod_id"
+          v-model="product.prod_id"
+          required
+        />
       </div>
       <div>
         <label for="price">Preis</label>
-        <input type="text" id="price" v-model="product.price" required/>
+        <input type="text" id="price" v-model="product.price" required />
       </div>
       <div>
         <label for="sizes">Größen:</label>
         <input type="text" id="sizes" v-model="product.sizes" />
       </div>
-       <div>
+      <div>
         <label for="colors">Farben:</label>
         <input type="text" id="colors" v-model="product.colors" />
       </div>
@@ -159,11 +162,7 @@
       <div class="mb-3">
         <label class="btn btn-primary">
           Bild auswählen
-          <input
-            type="file"
-            @change="previewImage"
-            style="display: none"
-          />
+          <input type="file" @change="previewImage" style="display: none" />
         </label>
         <img
           id="imagePreview"
@@ -171,14 +170,15 @@
           style="max-width: 100px; display: none"
         />
       </div>
-      <br>
+      <br />
       <p v-if="false" style="color: green">
         Ein Produkt kann nicht Variationen und Motive gleichzeitig haben.
       </p>
       <p v-if="error" style="color: red">{{ error }}</p>
-      <br>
+      <br />
       <div class="d-flex align-items-center">
-        <button type="submit"
+        <button
+          type="submit"
           :class="{
             'disabled-button':
               product.motives.length && product.variations.length,
