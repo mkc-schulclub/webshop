@@ -113,8 +113,8 @@
           </div>
         </div>
       </div>
-      <div class="image img-fluid">
-        <img src="../images/IMG_2386.webp" height="300" />
+      <div class="">
+        <img src="../images/IMG_2386.webp" class="rounded mx-auto d-block image img-fluid">
       </div>
     </div>
   </ul>
@@ -327,15 +327,14 @@ export default {
   /* display: flex !important; */
   align-items: baseline !important;
 }
+.image {
+  max-width: 95%;
+  height: auto;
+}
 @media (max-width: 560px) {
   .btn-group {
     margin-bottom: 2em;
     margin-top: 2em;
-  }
-  .image {
-    max-width: 100%;
-    height: auto;
-    overflow: hidden;
   }
   .btn-group:last-child {
     margin-bottom: 3em;
