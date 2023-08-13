@@ -110,7 +110,7 @@
       </ul>
     </h6>
     <p style="color: gray">Bsp.: Motive: Klinger Kopf, MKC Logo</p>
-    <form ref="productForm" @submit.prevent="console.log('success')">
+    <form ref="productForm" @submit.prevent="modProduct">
       <div>
         <label for="name">Name:</label>
         <input type="text" id="name" v-model="product.name" required />
