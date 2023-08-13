@@ -114,30 +114,27 @@
       <button type="submit">aha</button>
     </form>
     <p style="color: gray">Bsp.: Motive: Klinger Kopf, MKC Logo</p>
-    <form id="productForm" ref="productForm" @submit.prevent="console.log('success')">
+    <form
+      ref="productForm"
+      @submit.prevent="console.log('success')"
+    >
       <div>
         <label for="name">Name:</label>
         <input type="text" id="name" v-model="product.name" required />
       </div>
-      <div>
+       <div>
         <label for="prod_id">Produkt-ID:</label>
-        <input
-          v-bind:disabled="mode === 'edit'"
-          type="text"
-          id="prod_id"
-          v-model="product.prod_id"
-          required
-        />
+        <input v-bind:disabled="mode === 'edit'" type="text" id="prod_id" v-model="product.prod_id" required/>
       </div>
       <div>
         <label for="price">Preis</label>
-        <input type="text" id="price" v-model="product.price" required />
+        <input type="text" id="price" v-model="product.price" required/>
       </div>
       <div>
         <label for="sizes">Größen:</label>
         <input type="text" id="sizes" v-model="product.sizes" />
       </div>
-      <div>
+       <div>
         <label for="colors">Farben:</label>
         <input type="text" id="colors" v-model="product.colors" />
       </div>
@@ -160,14 +157,12 @@
         />
       </div>
       <div class="mb-3">
-        <label class="form-label"></label>
         <label class="btn btn-primary">
           Bild auswählen
           <input
             type="file"
             @change="previewImage"
             style="display: none"
-            required
           />
         </label>
         <img
@@ -176,15 +171,14 @@
           style="max-width: 100px; display: none"
         />
       </div>
-      <br />
+      <br>
       <p v-if="false" style="color: green">
         Ein Produkt kann nicht Variationen und Motive gleichzeitig haben.
       </p>
       <p v-if="error" style="color: red">{{ error }}</p>
-      <br />
+      <br>
       <div class="d-flex align-items-center">
-        <button
-          type="submit"
+        <button type="submit"
           :class="{
             'disabled-button':
               product.motives.length && product.variations.length,
@@ -205,7 +199,7 @@
 import { computed, ref, onMounted, watch } from "vue";
 import { mapState, useStore, mapActions } from "vuex";
 import { useRouter } from "vue-router";
-import router from '../../router';
+import router from "../../router";
 import CryptoJS from "crypto-js";
 
 export default {
@@ -240,7 +234,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['fetchProducts']),
+    ...mapActions(["fetchProducts"]),
     adding() {
       this.product = {
         name: "",
@@ -316,34 +310,42 @@ export default {
         },
         body: productData,
       })
-      .then((response) => {
-        code = response.status
-        return response = response.json()
-      })
-      .then((response) => {
-        let title, message
-        message = response["api:message"]
-        if (code === 200) {
-          this.fetchProducts();
-          this.mode = "view";
-          return
-        }
-        else {
-          title = code === 500 ? "Ein Fehler ist aufgetreten" : ''
-          if (response["api:message"] === "Invalid Session") {
-            title = "Du bist nicht eingeloggt! Du wirst zum Login weitergeleitet..."
-            this.$store.commit('setPopup', { isVisible: true, title: title, message: message })
-             return setTimeout(() => {
-              router.push("/admin/login");
-              this.$store.commit('setPopup', { isVisible: false })
-            }, 3000);
+        .then((response) => {
+          code = response.status;
+          return (response = response.json());
+        })
+        .then((response) => {
+          let title, message;
+          message = response["api:message"];
+          if (code === 200) {
+            this.fetchProducts();
+            this.mode = "view";
+            return;
+          } else {
+            title = code === 500 ? "Ein Fehler ist aufgetreten" : "";
+            if (response["api:message"] === "Invalid Session") {
+              title =
+                "Du bist nicht eingeloggt! Du wirst zum Login weitergeleitet...";
+              this.$store.commit("setPopup", {
+                isVisible: true,
+                title: title,
+                message: message,
+              });
+              return setTimeout(() => {
+                router.push("/admin/login");
+                this.$store.commit("setPopup", { isVisible: false });
+              }, 3000);
+            }
           }
-        }
-        this.$store.commit('setPopup', { isVisible: true, title: title, message: message })
-      })
-      .catch((error) => {
-        console.error("Fehler:", error);
-      })
+          this.$store.commit("setPopup", {
+            isVisible: true,
+            title: title,
+            message: message,
+          });
+        })
+        .catch((error) => {
+          console.error("Fehler:", error);
+        });
     },
     deleteProduct(product) {
       this.editProduct = product;
