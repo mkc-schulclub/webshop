@@ -53,8 +53,6 @@ export default {
     Popup,
     Navbar,
     Header,
-    Home,
-    Admin,
   },
   data() {
     return {
