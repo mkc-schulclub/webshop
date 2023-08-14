@@ -131,7 +131,6 @@ const store = createStore({
     },
     fetchProducts(context) {
       setTimeout(() => {
-        console.log(context.state.products.length)
         if (context.state.products.length === 0) {
           context.commit('setPopup', { title: "Ein Fehler ist aufgetreten", message: '', isVisible: true })
           setTimeout(() => {

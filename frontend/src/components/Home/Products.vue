@@ -315,10 +315,10 @@ export default {
   background-color: var(--my-primary) !important;
   height: 40px !important;
   border-color: #000000 !important;
-  transition: transform 0.1s ease;
+  transition: 0.1s ease;
 }
 .btn-select:hover{
-  transform: scale(1.1);
+  font-weight: bolder !important;
 }
 .btn-select.active {
   background-color: #4ec797 !important;
