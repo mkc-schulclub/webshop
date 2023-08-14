@@ -7,7 +7,7 @@
         <div class="image col-md-2">
           <img src="../images/IMG_2386.webp" height="175"/>
         </div>
-        <div class="col-md-8">
+        <div class="text col-md-8">
           <ul v-if="product.color">
             <b>Farbe:</b>
             {{
@@ -174,6 +174,9 @@ export default {
 
 <style scoped>
 @import "bootstrap/dist/css/bootstrap.css";
+.text {
+  margin-left: auto;
+}
 .submitCartBtn {
   align-items: center;
   align-content: center;
