@@ -1,5 +1,5 @@
 <template>
-    <div class="container mt-5">
+    <div id="dash" class="container mt-5">
         <div class="row">
           <div class="col-md-6 mb-3">
             <div class="card">
@@ -47,7 +47,7 @@ export default {
   },
   created() {
     const cookieValue = this.getCookieValue('username');
-    this.username = cookieValue.charAt(0).toUpperCase() + cookieValue.slice(1);
+    if (cookieValue) this.username = cookieValue.charAt(0).toUpperCase() + cookieValue.slice(1);
   },
   methods: {
     getCookieValue(cookieName) {
@@ -64,7 +64,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import "bootstrap/dist/css/bootstrap.css";
 .card {
     color: whitesmoke;
