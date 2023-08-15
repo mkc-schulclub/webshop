@@ -1,12 +1,33 @@
 <template>
-    <div id="dash" class="container row">
-        <div class="card mx-4 py-2 text-center col">
-            Anzahl von Produkten im Shop: {{ store.state.productCount }}
+    <div class="container mt-5">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Hallo, {{ username }}!</h5>
+                <p class="card-text">⠀</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Anzahl von Produkten im Shop:</h5>
+                <p class="card-text">{{ store.state.productCount }}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-12 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Tolle Daten:</h5>
+                <p class="card-text">ja</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card mx-4 py-2 text-center col">
-            {{ username }}
-        </div>
-    </div>
+      </div>
 </template>
 
 <script>
@@ -47,6 +68,6 @@ export default {
 @import "bootstrap/dist/css/bootstrap.css";
 .card {
     color: whitesmoke;
-    background-color: yellow;
+    background-color: rgb(217, 141, 0);
 }
 </style>
