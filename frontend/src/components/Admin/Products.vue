@@ -393,15 +393,6 @@ export default {
       }
       return null;
     },
-    logout() {
-      const cookies = document.cookie.split(";");
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        const cookieName = cookie.split("=")[0];
-        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-      }
-      router.push("/");
-    },
   },
   computed: {
     ...mapState(["products"]),
