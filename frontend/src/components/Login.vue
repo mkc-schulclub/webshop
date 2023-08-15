@@ -99,6 +99,7 @@ export default {
               expirationDate.getTime() + 24 * 60 * 60 * 1000
             );
             document.cookie = `sessionToken=${sid}; expiress=${expirationDate.toUTCString()}; path=/; SameSite=None; secure`;
+            document.cookie = `username=${username}; expiress=${expirationDate.toUTCString()}; path=/; SameSite=None; secure`;
             this.router.push("/admin");
           } else {
             console.error("No session token generated");
