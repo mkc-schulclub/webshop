@@ -17,6 +17,7 @@ Der Webshop für den Schulmerch
     - [x] edit
     - [x] delete
     - [x] authentication/login
-    - [ ] add/delete/edit custom users 
+    - [ ] add/delete/edit custom users
+    - [ ] dashboard with data
   - [X] Kommunikation mit Backend
   - [ ] Schönes Design
