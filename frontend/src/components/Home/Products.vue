@@ -303,7 +303,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .card-body {
   background-color: #c6f1d9;
 }

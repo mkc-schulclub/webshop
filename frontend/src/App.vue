@@ -13,7 +13,6 @@ import LoadingBackdrop from "./components/LoadingBackdrop.vue";
 import Navbar from "./components/Navbar.vue";
 import Header from "./components/Header.vue";
 import Popup from "./components/Popup.vue";
-import Home from "./components/Home/Home.vue";
 
 import { watch, ref } from "vue";
 import { mapState, mapActions, useStore } from "vuex";
