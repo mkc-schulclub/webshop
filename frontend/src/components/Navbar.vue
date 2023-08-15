@@ -38,7 +38,7 @@
 
 <script>
 import { computed, ref } from "vue";
-import { mapState, mapGetters, useStore, mapMutations } from "vuex";
+import { mapGetters, useStore } from "vuex";
 
 export default {
   setup() {

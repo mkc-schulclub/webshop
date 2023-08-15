@@ -11,8 +11,7 @@
 </template>
 
 <script>
-import { computed, ref } from "vue";
-import { mapState, mapActions, mapGetters, useStore } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   computed: {

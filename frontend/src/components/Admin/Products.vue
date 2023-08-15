@@ -192,7 +192,7 @@
 </template>
 
 <script>
-import { computed, ref, onMounted, watch } from "vue";
+import { computed } from "vue";
 import { mapState, useStore, mapActions } from "vuex";
 import { useRouter } from "vue-router";
 import router from "../../router";

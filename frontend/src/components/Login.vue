@@ -29,8 +29,6 @@
 </template>
 
 <script>
-import { computed } from "vue";
-import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import CryptoJS from "crypto-js";
 
