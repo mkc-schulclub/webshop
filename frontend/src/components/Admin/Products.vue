@@ -359,7 +359,6 @@ export default {
         body: data,
       })
         .then((response) => {
-          console.log(response.status, response.statusText);
           return response;
         })
         .then(() => {
