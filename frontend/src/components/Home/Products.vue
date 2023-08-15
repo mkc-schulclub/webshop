@@ -34,8 +34,8 @@
     </div>
   </div>
 
-  <ul v-for="(product, index) in filteredProducts" :key="index" class="card mb-2 mx-0 p-0" style="width: 100%;">
-    <div class=" card-body">
+  <ul v-for="(product, index) in filteredProducts" :key="index" class="products card mb-2 mx-0 p-0" style="width: 100%;">
+    <div class="card-body">
       <div class="text">
         <h3 class="mb-0">{{ `${product.name} (${product.prod_id})` }}</h3>
         <div class="selections">
@@ -304,7 +304,7 @@ export default {
 </script>
 
 <style>
-.card-body {
+.products .card-body {
   background-color: #c6f1d9;
 }
 .cart-btn {

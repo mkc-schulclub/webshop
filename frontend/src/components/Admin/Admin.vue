@@ -1,8 +1,10 @@
 <template>
+  <Dashboard v-if="activePage === 0"/>
   <Products v-if="activePage === 1" />
 </template>
 
 <script>
+import Dashboard from "./Dashboard.vue"
 import Products from "./Products.vue";
 
 import { computed, watch, onMounted } from "vue";
@@ -32,6 +34,7 @@ export default {
     };
   },
   components: {
+    Dashboard,
     Products,
   },
 };

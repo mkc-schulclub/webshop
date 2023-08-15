@@ -6,6 +6,7 @@ const store = createStore({
     loading: false,
     activePage: 0,
     cartCount: 0,
+    productCount: 0,
     route: "Home",
     pages: [],
     products: [],
@@ -106,6 +107,7 @@ const store = createStore({
     },
     fetchProducts(state, data) {
       state.products = data;
+      state.productCount = state.products.length
     },
     setPopup(state, { title, message, isVisible }) {
       state.popup.title = title;
