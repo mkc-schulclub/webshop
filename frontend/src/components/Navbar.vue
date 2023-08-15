@@ -16,14 +16,14 @@
             {{ page.pageTitle }}
             <span
               class="badge rounded-pill bg-danger"
-              v-if="index === 1 && route === 'Home' && cartItemCount"
+              v-if="index === 1 && $route.name === 'Home' && cartItemCount"
             >
               {{ cartItemCount }}
             </span>
           </a>
         </li>
         <router-link
-          v-if="route === 'Login'"
+          v-if="$route.name === 'Login'"
           class="nav-link"
           :title="`Zu Home`"
           to="/"
@@ -46,7 +46,6 @@ export default {
     const activePage = computed(() => store.state.activePage);
     const cartItemCount = computed(() => store.getters.cartItemCount);
     const darkMode = ref(store.state.darkMode);
-    const route = computed(() => store.state.route);
 
     const setPage = (page) => {
       store.dispatch("setActivePage", page);
@@ -55,7 +54,6 @@ export default {
     return {
       store,
       darkMode,
-      route,
       activePage,
       cartItemCount,
       setPage,
