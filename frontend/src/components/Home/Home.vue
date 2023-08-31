@@ -1,5 +1,5 @@
 <template>
-    <Products v-if="this.activePage === 0"/>
+    <NewProducts v-if="this.activePage === 0"/>
     <Cart v-if="this.activePage === 1"/>
     <Schulclub v-if="activePage === 2"/>
 </template>
@@ -8,7 +8,8 @@
     import { computed, onMounted } from 'vue';
     import { useStore, mapActions } from 'vuex';
 
-    import Products from './Products.vue';
+    import Products from './Products.vue'
+    import NewProducts from './NewProducts.vue';
     import Cart from './Cart.vue'
     import Schulclub from './Schulclub.vue'
 
@@ -24,6 +25,7 @@
             }
         },
         components: {
+            NewProducts,
             Products,
             Cart,
             Schulclub,
