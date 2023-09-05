@@ -5,9 +5,9 @@ Der Webshop für den Schulmerch
 ## To-Do
 - Backend
   - [x] Sichere API
-  - [ ] Guter Code
+  - [ ] Optimaler Code
   - [x] Kommunikation mit DB
-  - [x] DB Befüllen mit echten Daten // wird vom enduser selbst gemacht
+  - [x] DB mit echten Daten befüllbar machen (wird vom Club selbst befüllt)
 - Frontend
   - [X] Funktionierende Oberfläche zum Bestellen (User Interface)
   - [X] Anzahl von Artikeln
@@ -18,6 +18,6 @@ Der Webshop für den Schulmerch
     - [x] delete
     - [x] authentication/login
     - [ ] add/delete/edit custom users
-    - [ ] dashboard with data
+    - [ ] dashboard mit infos
   - [X] Kommunikation mit Backend
-  - [ ] Schönes Design
+  - [ ] Finales Shop-Design
