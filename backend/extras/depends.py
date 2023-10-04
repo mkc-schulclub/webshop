@@ -25,7 +25,6 @@ boolFromString: Callable[[str], bool] = lambda string: (
 
 SES_KEY = os.getenv("SES_KEY")
 SIG_KEY = os.getenv("SIG_KEY")
-PRE = os.getenv("PRE")
 CHECK = boolFromString(os.getenv("CHECK_SIG", "false"))
 
 
@@ -40,7 +39,6 @@ async def validateSig(request: Request, hjtrfs: str = Header(default="")):
     if not CHECK:
         return True
     mac = HMAC(SIG_KEY.encode(), await request.body(), sha256)
-    DIGEST = mac.hexdigest()
     if mac.hexdigest().casefold() != hjtrfs.casefold():
         raise ShopException(
             statusCodes.INVALID_SIGNATURE,

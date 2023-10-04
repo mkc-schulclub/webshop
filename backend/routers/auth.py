@@ -22,13 +22,19 @@ router = APIRouter(
     dependencies=[Depends(validateSig)]
 )
 async def login(request: Request):
-    try: out: dict[str, str] = await request.json()
-    except Exception: raise ShopException(
-        statusCodes.INVALID_BODY,
-        "Invalid Body",
-        "Couldn't json parse"
-    )
-    if not all(key in out.keys() for key in ["name", "password"]) and all(
+    keys = ["name", "password"]
+    
+    try:
+        out: dict[str, str] = await request.json()
+
+    except Exception:
+        raise ShopException(
+            statusCodes.INVALID_BODY,
+            "Invalid Body",
+            "Couldn't json parse or body doesn't contain name and password"
+        )
+
+    if (not all(key in out.keys() for key in keys)) or not all(
         isinstance(out[key], str) for key in ["name", "password"]
     ):
         raise ShopException(
