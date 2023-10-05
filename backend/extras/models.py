@@ -33,4 +33,4 @@ class Order(BaseModel):
 class User(BaseModel):
     name: str
     _id: str
-    admin: bool
+    admin: bool = False

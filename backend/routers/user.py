@@ -70,7 +70,11 @@ async def getUsers(skip: int = 0, limit: int = 20):
     cursor = db.users.find({}).skip(skip).limit(limit)
     items = await cursor.to_list(limit)
     return [
-        User(name=item["name"], _id=str(item["_id"]))
+        User(
+            name=item["name"],
+            _id=str(item["_id"]),
+            admin=bool(item.get("admin", False))
+        )
         for item in items
     ]
 
