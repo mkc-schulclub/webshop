@@ -19,7 +19,6 @@ class Item(BaseModel):
     prod_id:   str
     amount:    int                      = 1
     variation: Optional[dict[str, str]] = {}
-    motive:    Optional[dict[str, str]] = {}
     color:     Optional[str]            = ""
     size:      Optional[str]            = ""
 

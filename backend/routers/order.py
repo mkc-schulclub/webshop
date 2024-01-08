@@ -64,26 +64,29 @@ async def order(items: List[Item]):
                 "Non Existant Product",
                 "Tried to specify a product that doesnt exist in the database"
             )
-        maybe_variation = getattr(item.motive or item.variation, "keys", lambda: False)()
-        if maybe_variation:
-            maybe_variation = list(maybe_variation)[0]
-        else:
-            maybe_variation = ""
-        data[f"ProduktnrRow{index+1}"] = f"{item.prod_id}{maybe_variation}"
+
+        data[f"ProduktnrRow{index+1}"] = f"{item.prod_id}{item.variation or ''}"
         data[f"FarbeRow{index+1}"]  = f"{item.color or '---'}"
         data[f"GrößeRow{index+1}"]  = f"{item.size or '---'}"
         data[f"AnzahlRow{index+1}"] = f"{item.amount}"
         data[f"PreisRow{index+1}"] = f"{item.amount * product['price']}"
         total += item.amount * product['price']
+
     data["Price"] = str(total)
     data["Date1"] = data["Date2"] = time.strftime("%d.%m.%Y")
+
     fillpdfs.write_fillable_pdf("backend/static/formular.pdf", "out.pdf", data)
     fillpdfs.flatten_pdf("out.pdf", "out-flat.pdf")
+
     os.remove("out.pdf")
+
     async with ClientSession() as session:
         response = await upload(session, "out-flat.pdf")
-    await db.orders.insert_one({"items": [item.dict() for item in items], "date": datetime.now(), "url": response["files"][0]})
+
+    await db.orders.insert_one({"items": [item.model_dump() for item in items], "date": datetime.now(), "url": response["files"][0]})
+
     os.remove("out-flat.pdf")
+
     return response | {"api:statuscode": statusCodes.SUCCESS}
 
 

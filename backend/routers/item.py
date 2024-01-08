@@ -38,8 +38,8 @@ async def addItem(item: Product):
             "Item Already Exists",
             "Tried to insert item, which already exists in DB"
         )
-    await db.items.insert_one(item.dict())
-    return item.dict() | {"api:statuscode": statusCodes.SUCCESS}
+    await db.items.insert_one(item.model_dump())
+    return item.model_dump() | {"api:statuscode": statusCodes.SUCCESS}
 
 
 @router.patch(
@@ -55,8 +55,8 @@ async def updateItem(item: Product):
             "prod_id not in database"
         )
     
-    await db.items.update_one({"prod_id": item.prod_id}, {"$set": {k: v for k, v in item.dict().items() if v}})
-    return {k: v if v else product[k] for k, v in item.dict().items()} | {"api:statuscode": statusCodes.SUCCESS}
+    await db.items.update_one({"prod_id": item.prod_id}, {"$set": {k: v for k, v in item.model_dump().items() if v}})
+    return {k: v if v else product[k] for k, v in item.model_dump().items()} | {"api:statuscode": statusCodes.SUCCESS}
 
 
 @router.delete(
